@@ -1,6 +1,6 @@
 package com.switchfully.digibooky.repository;
 
-import com.switchfully.digibooky.domain.User;
+import com.switchfully.digibooky.domain.user.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

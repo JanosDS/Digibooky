@@ -1,4 +1,6 @@
-package com.switchfully.digibooky.domain;
+package com.switchfully.digibooky.domain.user;
+
+import com.switchfully.digibooky.domain.Address;
 
 import java.util.UUID;
 
