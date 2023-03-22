@@ -37,4 +37,8 @@ public class Book {
 	public boolean isAvailable() {
 		return isAvailable;
 	}
+
+	public List<Author> getAuthorList() {
+		return authorList;
+	}
 }
