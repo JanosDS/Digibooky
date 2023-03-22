@@ -11,7 +11,7 @@ public class UserDTO {
     private String lastName;
     private String email;
     private Address address;
-    private String iNSS;
+    private String INSS;
     private Role role;
 
     public UserDTO(UUID userId, String firstName, String lastName, String email, Address address, String iNSS, Role role) {
@@ -20,7 +20,7 @@ public class UserDTO {
         this.lastName = lastName;
         this.email = email;
         this.address = address;
-        this.iNSS = iNSS;
+        this.INSS = iNSS;
         this.role = role;
     }
 
@@ -44,8 +44,8 @@ public class UserDTO {
         return address;
     }
 
-    public String getiNSS() {
-        return iNSS;
+    public String getINSS() {
+        return INSS;
     }
 
     public Role getRole() {

@@ -7,16 +7,18 @@ import javax.management.relation.Role;
 import java.util.UUID;
 
 public class CreateUserDTO {
+	private String firstName;
 	private String lastName;
 	private String email;
 	private CreateAddressDTO address;
-	private String iNSS;
+	private String INSS;
 
-	public CreateUserDTO(String lastName, String email, CreateAddressDTO newAddress, String iNSS) {
+	public CreateUserDTO(String firstName, String lastName, String email, CreateAddressDTO address, String INSS) {
+		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.address = newAddress;
-		this.iNSS = iNSS;
+		this.address = address;
+		this.INSS = INSS;
 	}
 
 	public String getLastName() {
@@ -31,7 +33,11 @@ public class CreateUserDTO {
 		return address;
 	}
 
-	public String getiNSS() {
-		return iNSS;
+	public String getINSS() {
+		return INSS;
+	}
+
+	public String getFirstName() {
+		return firstName;
 	}
 }

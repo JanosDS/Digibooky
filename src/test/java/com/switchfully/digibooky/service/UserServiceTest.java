@@ -1,7 +1,11 @@
 package com.switchfully.digibooky.service;
 
 import com.switchfully.digibooky.domain.user.User;
+import com.switchfully.digibooky.dto.address.AddressMapper;
+import com.switchfully.digibooky.dto.address.CreateAddressDTO;
+import com.switchfully.digibooky.dto.user.CreateUserDTO;
 import com.switchfully.digibooky.dto.user.UserMapper;
+import com.switchfully.digibooky.exception.MandatoryFieldException;
 import com.switchfully.digibooky.repository.UserRepository;
 import org.junit.jupiter.api.*;
 
@@ -12,7 +16,7 @@ class UserServiceTest {
 
 	@BeforeEach
 	void setup(){
-		this.userService = new UserService(new UserRepository(), new UserMapper());
+		this.userService = new UserService(new UserRepository(), new UserMapper(new AddressMapper()));
 	}
 
 	@Nested
@@ -58,11 +62,64 @@ class UserServiceTest {
 	@DisplayName("INSS validation")
 	class inssValidation{
 		@Test
-		@DisplayName("unique INSS validation")
+		@DisplayName("Validate INSS when it is unique")
 		void uniqueINSS_isValid(){
 			String INSS = "whatever";
+			assertTrue(userService.validateUniqueINSS(INSS));
+		}
 
+		@Test
+		@DisplayName("Validate INSS when it is not unique")
+		void NotUniqueINSS_isInvalid(){
+			String INSS = "MyINSS";
+			assertFalse(userService.validateUniqueINSS(INSS));
+		}
+	}
 
+	@Nested
+	@DisplayName("Validate mandatory fields")
+	class mandatoryFieldsValidation{
+		@Test
+		@DisplayName("Validate when every mandatory field is filled in")
+		void allMandatoryFieldsAreFilledIn_isValid(){
+			CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "j", new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyINSS");
+			userService.validateMandatoryFields(newUser);
+		}
+
+		@Test
+		@DisplayName("Validate when lastname field is not filled in")
+		void lastnameFieldNotFilledIn_isInvalid(){
+			CreateUserDTO newUser = new CreateUserDTO("Firstname", null, "j", new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyINSS");
+			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
+				userService.validateMandatoryFields(newUser);
+			});
+		}
+
+		@Test
+		@DisplayName("Validate when email field is not filled in")
+		void emailFieldNotFilledIn_isInvalid(){
+			CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", null, new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyINSS");
+			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
+				userService.validateMandatoryFields(newUser);
+			});
+		}
+
+		@Test
+		@DisplayName("Validate when city field is not filled in")
+		void cityFieldNotFilledIn_isInvalid(){
+			CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "j", new CreateAddressDTO("street","25", "PC", null, "Country"), "MyINSS");
+			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
+				userService.validateMandatoryFields(newUser);
+			});
+		}
+
+		@Test
+		@DisplayName("Validate when INSS field is not filled in")
+		void INSSFieldNotFilledIn_isInvalid(){
+			CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "j", new CreateAddressDTO("street","25", "PC", "City", "Country"), null);
+			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
+				userService.validateMandatoryFields(newUser);
+			});
 		}
 	}
 

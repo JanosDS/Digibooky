@@ -1,6 +1,7 @@
 package com.switchfully.digibooky.domain.user;
 
 import com.switchfully.digibooky.domain.Address;
+import com.switchfully.digibooky.dto.address.CreateAddressDTO;
 
 import java.util.UUID;
 
@@ -10,7 +11,7 @@ public class User {
     private String lastName;
     private String email;
     private Address address;
-    private String iNSS;
+    private String INSS;
     private Role role;
 
     public User(String firstName, String lastName, String email, Address address, String iNSS, Role role) {
@@ -19,7 +20,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.address = address;
-        this.iNSS = iNSS;
+        this.INSS = iNSS;
         this.role = role;
     }
 
@@ -43,8 +44,8 @@ public class User {
         return address;
     }
 
-    public String getiNSS() {
-        return iNSS;
+    public String getINSS() {
+        return INSS;
     }
 
     public Role getRole() {

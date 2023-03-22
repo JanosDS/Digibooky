@@ -15,4 +15,8 @@ public class AddressMapper {
     public Address mapToDomain(AddressDTO addressDTO) {
         return new Address(addressDTO.getStreet(), addressDTO.getHouseNumber(), addressDTO.getPostalCode(), addressDTO.getCity(), addressDTO.getCountry());
     }
+
+    public Address mapToDomain(CreateAddressDTO addressDTO) {
+        return new Address(addressDTO.getStreet(), addressDTO.getHouseNumber(), addressDTO.getPostalCode(), addressDTO.getCity(), addressDTO.getCountry());
+    }
 }

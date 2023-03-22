@@ -1,11 +1,13 @@
 package com.switchfully.digibooky.service;
 
+import com.switchfully.digibooky.domain.Address;
+import com.switchfully.digibooky.dto.address.AddressMapper;
 import com.switchfully.digibooky.dto.user.CreateUserDTO;
-import com.switchfully.digibooky.dto.user.UserDTO;
 import com.switchfully.digibooky.dto.user.UserMapper;
 import com.switchfully.digibooky.exception.InvalidEmailException;
+import com.switchfully.digibooky.exception.InvalidINSSException;
+import com.switchfully.digibooky.exception.MandatoryFieldException;
 import com.switchfully.digibooky.repository.UserRepository;
-import jdk.jshell.spi.ExecutionControl;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
@@ -15,13 +17,39 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
-
 	public UserService(UserRepository userRepository, UserMapper userMapper) {
 		this.userRepository = userRepository;
 		this.userMapper = userMapper;
 	}
 
+	public void createNewUser(CreateUserDTO newUser){
+		validateMandatoryFields(newUser);
+		validateINSS(newUser.getINSS());
+		validateEmail(newUser.getEmail());
 
+
+	}
+
+	public void validateMandatoryFields(CreateUserDTO newUser){
+		if(newUser.getLastName() == null){
+			throw new MandatoryFieldException("The lastname field cannot be empty");
+		}
+		if(newUser.getINSS() == null){
+			throw new MandatoryFieldException("The INSS field cannot be empty");
+		}
+		if(newUser.getEmail() == null){
+			throw new MandatoryFieldException("The email field cannot be empty");
+		}
+		if(newUser.getAddress().getCity() == null){
+			throw new MandatoryFieldException("The address city field cannot be empty");
+		}
+	}
+
+	public void validateINSS(String INSS){
+		if(!validateUniqueINSS(INSS)){
+			throw new InvalidINSSException( INSS + " is not a unique INSS.");
+		}
+	}
 
 
 	public void validateEmail(String email){
@@ -49,8 +77,9 @@ public class UserService {
 	}
 
 	public boolean validateUniqueINSS(String INSS){
-
-		return false;
+		return userRepository.getUserList()
+				.stream()
+				.noneMatch(user -> user.getINSS().equals(INSS));
 	}
 
 

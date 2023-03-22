@@ -1,8 +1,6 @@
 package com.switchfully.digibooky.dto.address;
 
-import org.springframework.stereotype.Component;
 
-@Component
 public class AddressDTO {
     private final String street;
     private final String houseNumber;
