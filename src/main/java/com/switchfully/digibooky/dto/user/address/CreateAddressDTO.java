@@ -1,4 +1,4 @@
-package com.switchfully.digibooky.dto.address;
+package com.switchfully.digibooky.dto.user.address;
 
 public class CreateAddressDTO {
 

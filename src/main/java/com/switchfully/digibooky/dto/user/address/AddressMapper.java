@@ -1,7 +1,6 @@
-package com.switchfully.digibooky.dto.address;
+package com.switchfully.digibooky.dto.user.address;
 
-import com.switchfully.digibooky.domain.Address;
-import com.switchfully.digibooky.dto.address.AddressDTO;
+import com.switchfully.digibooky.domain.user.Address;
 import org.springframework.stereotype.Component;
 
 @Component

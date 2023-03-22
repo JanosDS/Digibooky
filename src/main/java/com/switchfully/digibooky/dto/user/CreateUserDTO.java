@@ -1,10 +1,6 @@
 package com.switchfully.digibooky.dto.user;
 
-import com.switchfully.digibooky.domain.Address;
-import com.switchfully.digibooky.dto.address.CreateAddressDTO;
-
-import javax.management.relation.Role;
-import java.util.UUID;
+import com.switchfully.digibooky.dto.user.address.CreateAddressDTO;
 
 public class CreateUserDTO {
 	private String firstName;

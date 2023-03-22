@@ -1,8 +1,7 @@
 package com.switchfully.digibooky.service;
 
-import com.switchfully.digibooky.domain.Address;
-import com.switchfully.digibooky.dto.address.AddressMapper;
 import com.switchfully.digibooky.dto.user.CreateUserDTO;
+import com.switchfully.digibooky.dto.user.UserDTO;
 import com.switchfully.digibooky.dto.user.UserMapper;
 import com.switchfully.digibooky.exception.InvalidEmailException;
 import com.switchfully.digibooky.exception.InvalidINSSException;
@@ -22,12 +21,17 @@ public class UserService {
 		this.userMapper = userMapper;
 	}
 
-	public void createNewUser(CreateUserDTO newUser){
+	public UserDTO createNewUser(CreateUserDTO newUser){
 		validateMandatoryFields(newUser);
 		validateINSS(newUser.getINSS());
 		validateEmail(newUser.getEmail());
+		return userMapper.mapToDTO(userRepository.addUser(userMapper.mapToDomain(newUser)));
+	}
 
-
+	public UserDTO getUserByINSS(String INSS){
+		return userRepository.getUserByINSS(INSS)
+				.map(userMapper::mapToDTO)
+				.orElse(null);
 	}
 
 	public void validateMandatoryFields(CreateUserDTO newUser){

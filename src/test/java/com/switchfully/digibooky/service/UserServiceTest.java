@@ -1,9 +1,9 @@
 package com.switchfully.digibooky.service;
 
-import com.switchfully.digibooky.domain.user.User;
-import com.switchfully.digibooky.dto.address.AddressMapper;
-import com.switchfully.digibooky.dto.address.CreateAddressDTO;
+import com.switchfully.digibooky.dto.user.address.AddressMapper;
+import com.switchfully.digibooky.dto.user.address.CreateAddressDTO;
 import com.switchfully.digibooky.dto.user.CreateUserDTO;
+import com.switchfully.digibooky.dto.user.UserDTO;
 import com.switchfully.digibooky.dto.user.UserMapper;
 import com.switchfully.digibooky.exception.MandatoryFieldException;
 import com.switchfully.digibooky.repository.UserRepository;
@@ -123,5 +123,13 @@ class UserServiceTest {
 		}
 	}
 
+	@Test
+	@DisplayName("Test creation of a new user, and finding it in the repo")
+	void addNewUser(){
+		CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "mail@mail.com", new CreateAddressDTO("street","25", "PC", "City", "Country"), "xxx");
+		UserDTO resultUserDTO = userService.createNewUser(newUser);
+		UserDTO expectedUserDTO = userService.getUserByINSS(newUser.getINSS());
+		Assertions.assertEquals(expectedUserDTO, resultUserDTO);
+	}
 
 }

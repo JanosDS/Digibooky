@@ -1,13 +1,14 @@
-package com.switchfully.digibooky.domain;
+package com.switchfully.digibooky.dto.user.address;
 
-public class Address {
+
+public class AddressDTO {
     private final String street;
     private final String houseNumber;
     private final String postalCode;
     private final String city;
     private final String country;
 
-    public Address(String street, String houseNumber, String postalCode, String city, String country) {
+    public AddressDTO(String street, String houseNumber, String postalCode, String city, String country) {
         this.street = street;
         this.houseNumber = houseNumber;
         this.postalCode = postalCode;
@@ -28,9 +29,5 @@ public class Address {
     }
     public String getCountry() {
         return country;
-    }
-
-    public String getNumber() {
-        return houseNumber;
     }
 }

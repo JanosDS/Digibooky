@@ -1,8 +1,6 @@
 package com.switchfully.digibooky.domain.user;
 
-import com.switchfully.digibooky.domain.Address;
-import com.switchfully.digibooky.dto.address.CreateAddressDTO;
-
+import java.util.Objects;
 import java.util.UUID;
 
 public class User {
@@ -50,5 +48,23 @@ public class User {
 
     public Role getRole() {
         return role;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return Objects.equals(userId, user.userId) && Objects.equals(email, user.email) && Objects.equals(INSS, user.INSS);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, email, INSS);
     }
 }
