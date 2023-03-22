@@ -16,10 +16,10 @@ public class BookMapper {
 	}
 
 	public BookDTO mapToDTO(Book book){
-		return new BookDTO(book.getISBN(), book.getTitle(),book.getAuthorList(), book.getSummary(), book.isAvailable());
+		return new BookDTO(book.getIsbn(), book.getTitle(),book.getAuthorList(), book.getSummary(), book.isAvailable());
 	}
 
     public Book mapToDomain(BookDTO bookDTO) {
-		return new Book(bookDTO.getISBN(), bookDTO.getTitle(), bookDTO.getAuthorList(), bookDTO.getSummary(), bookDTO.isAvailable());
+		return new Book(bookDTO.getIsbn(), bookDTO.getTitle(), bookDTO.getAuthorList(), bookDTO.getSummary(), bookDTO.isAvailable());
     }
 }

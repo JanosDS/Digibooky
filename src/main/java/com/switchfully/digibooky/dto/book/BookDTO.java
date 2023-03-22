@@ -5,22 +5,22 @@ import com.switchfully.digibooky.domain.author.Author;
 import java.util.List;
 
 public class BookDTO {
-	private final String ISBN;
+	private final String isbn;
 	private  String title;
 	private  List<Author> authorList;
 
 	private  String summary;
 	private boolean isAvailable;
 
-	public BookDTO(String ISBN, String title, List<Author> authorList, String summary, boolean isAvailable) {
-		this.ISBN = ISBN;
+	public BookDTO(String isbn, String title, List<Author> authorList, String summary, boolean isAvailable) {
+		this.isbn = isbn;
 		this.title = title;
 		this.authorList = authorList;
 		this.summary = summary;
 		this.isAvailable = isAvailable;
 	}
-	public String getISBN() {
-		return ISBN;
+	public String getIsbn() {
+		return isbn;
 	}
 
     public String getTitle() {

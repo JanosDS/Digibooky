@@ -21,8 +21,8 @@ public class ISBNTest {
         List<Author> authorList = List.of(new Author("Jimmy", "Sirius"));
         Book bookToStore1 = new Book("randomISBN12345", "LOL", authorList, "summary", true);
         bookRepository.putBookInList(bookToStore1);
-        List<BookDTO> bookToTest =  bookService.getBooksByISBN("randomISBN12*");
-        String ISBN1 = bookToTest.get(0).getISBN();
+        List<BookDTO> bookToTest =  bookService.getBooksByIsbn("randomISBN12*");
+        String ISBN1 = bookToTest.get(0).getIsbn();
         Assertions.assertThat(ISBN1).isEqualTo("randomISBN12345");
     }
 }

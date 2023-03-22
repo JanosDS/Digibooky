@@ -16,9 +16,9 @@ public class BookRepository {
 		this.bookList = new ArrayList<>();
 	}
 
-	public Book getById(String ISBN) {
+	public Book getById(String Isbn) {
 		return bookList.stream()
-				.filter(book -> book.getISBN().equals(ISBN))
+				.filter(book -> book.getIsbn().equals(Isbn))
 				.findFirst()
 				.orElse(null);
 	}
@@ -33,7 +33,6 @@ public class BookRepository {
 	public List<Book> getBookList() {
 		return bookList;
 	}
-
     public void updateBook(Book bookToUpdate) {
 		bookList.remove(bookToUpdate);
 		bookList.add(bookToUpdate);

@@ -25,15 +25,15 @@ public class BookService {
         return bookMapper.mapToDTO(bookRepository.getById(id));
     }
 
-    public List<BookDTO> getBooksByISBN(String ISBN) {
-        boolean wildcard = ISBN.contains("*");
+    public List<BookDTO> getBooksByIsbn(String Isbn) {
+        boolean wildcard = Isbn.contains("*");
         if (!wildcard) {
-            return List.of(getBookById(ISBN));
+            return List.of(getBookById(Isbn));
         } else {
-            String ISBNWithoutWildcard = ISBN.replace("*", "");
+            String ISBNWithoutWildcard = Isbn.replace("*", "");
             List<Book> bookList = bookRepository.getAllBooks();
             List<Book> bookListWithWildcard = bookList.stream()
-                    .filter(book -> book.getISBN().contains(ISBNWithoutWildcard))
+                    .filter(book -> book.getIsbn().contains(ISBNWithoutWildcard))
                     .collect(Collectors.toList());
             return bookMapper.mapToDTO(bookListWithWildcard);
         }
