@@ -33,6 +33,11 @@ public class BookRepository {
 	public List<Book> getBookList() {
 		return bookList;
 	}
+
+    public void updateBook(Book bookToUpdate) {
+		bookList.remove(bookToUpdate);
+		bookList.add(bookToUpdate);
+    }
 }
 
 

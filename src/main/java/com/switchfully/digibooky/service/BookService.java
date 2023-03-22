@@ -44,4 +44,10 @@ public class BookService {
         bookRepository.putBookInList(bookToStore);
         return bookDTO;
     }
+
+    public BookDTO updateBook(BookDTO bookDTO) {
+        Book bookToUpdate = bookMapper.mapToDomain(bookDTO);
+        bookRepository.updateBook(bookToUpdate);
+        return bookDTO;
+    }
 }

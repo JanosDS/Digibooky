@@ -6,10 +6,10 @@ import java.util.List;
 
 public class BookDTO {
 	private final String ISBN;
-	private final String title;
-	private final List<Author> authorList;
+	private  String title;
+	private  List<Author> authorList;
 
-	private final String summary;
+	private  String summary;
 	private boolean isAvailable;
 
 	public BookDTO(String ISBN, String title, List<Author> authorList, String summary, boolean isAvailable) {
@@ -38,4 +38,18 @@ public class BookDTO {
 	public List<Author> getAuthorList() {
 		return authorList;
 	}
+
+	public void setAvailable(boolean available) {
+		isAvailable = available;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	public void setAuthorList(List<Author> authorList) {
+		this.authorList = authorList;
+	}
+
 }
