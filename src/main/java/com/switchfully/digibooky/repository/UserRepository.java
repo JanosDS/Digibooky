@@ -28,7 +28,7 @@ public class UserRepository {
 
 	public Optional<User> getUserByINSS(String INSS) {
 		return userList.stream()
-				.filter(user -> user.getINSS().equals(INSS))
+				.filter(user -> user.getInss().equals(INSS))
 				.findFirst();
 	}
 }

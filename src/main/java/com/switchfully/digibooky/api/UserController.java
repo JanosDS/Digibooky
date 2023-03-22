@@ -23,8 +23,8 @@ public class UserController {
 	}
 
 	@GetMapping
-	public UserDTO getUserByINSS(@RequestParam(name="INSS") String INSS){
-		return userService.getUserByINSS(INSS);
+	public UserDTO getUserByInss(@RequestParam(name= "inss") String inss){
+		return userService.getUserByInss(inss);
 	}
 
 

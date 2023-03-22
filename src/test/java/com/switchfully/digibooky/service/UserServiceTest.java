@@ -8,7 +8,6 @@ import com.switchfully.digibooky.dto.user.UserMapper;
 import com.switchfully.digibooky.exception.MandatoryFieldException;
 import com.switchfully.digibooky.repository.UserRepository;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,14 +66,14 @@ class UserServiceTest {
 		@DisplayName("Validate INSS when it is unique")
 		void uniqueINSS_isValid(){
 			String INSS = "whatever";
-			assertTrue(userService.validateUniqueINSS(INSS));
+			assertTrue(userService.validateUniqueInss(INSS));
 		}
 
 		@Test
 		@DisplayName("Validate INSS when it is not unique")
 		void NotUniqueINSS_isInvalid(){
 			String INSS = "MyINSS";
-			assertFalse(userService.validateUniqueINSS(INSS));
+			assertFalse(userService.validateUniqueInss(INSS));
 		}
 	}
 
@@ -130,7 +129,7 @@ class UserServiceTest {
 	void addNewUser(){
 		CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "mail@mail.com", new CreateAddressDTO("street","25", "PC", "City", "Country"), "xxx");
 		UserDTO resultUserDTO = userService.createNewMemberUser(newUser);
-		UserDTO expectedUserDTO = userService.getUserByINSS(newUser.getINSS());
+		UserDTO expectedUserDTO = userService.getUserByInss(newUser.getInss());
 		Assertions.assertEquals(expectedUserDTO, resultUserDTO);
 	}
 

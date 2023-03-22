@@ -8,15 +8,15 @@ public class CreateUserDTO {
 	private String lastName;
 	private String email;
 	private CreateAddressDTO address;
-	private String INSS;
+	private String inss;
 	private Role role;
 
-	public CreateUserDTO(String firstName, String lastName, String email, CreateAddressDTO address, String INSS) {
+	public CreateUserDTO(String firstName, String lastName, String email, CreateAddressDTO address, String inss) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.address = address;
-		this.INSS = INSS;
+		this.inss = inss;
 	}
 
 	public String getLastName() {
@@ -31,8 +31,8 @@ public class CreateUserDTO {
 		return address;
 	}
 
-	public String getINSS() {
-		return INSS;
+	public String getInss() {
+		return inss;
 	}
 
 	public String getFirstName() {

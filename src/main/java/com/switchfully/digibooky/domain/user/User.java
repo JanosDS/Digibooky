@@ -9,16 +9,16 @@ public class User {
     private String lastName;
     private String email;
     private Address address;
-    private String INSS;
+    private String inss;
     private Role role;
 
-    public User(String firstName, String lastName, String email, Address address, String iNSS, Role role) {
+    public User(String firstName, String lastName, String email, Address address, String inss, Role role) {
         this.userId = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
-        this.INSS = iNSS;
+        this.inss = inss;
         this.role = role;
     }
 
@@ -42,8 +42,8 @@ public class User {
         return address;
     }
 
-    public String getINSS() {
-        return INSS;
+    public String getInss() {
+        return inss;
     }
 
     public Role getRole() {
@@ -60,11 +60,11 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return Objects.equals(userId, user.userId) && Objects.equals(email, user.email) && Objects.equals(INSS, user.INSS);
+        return Objects.equals(userId, user.userId) && Objects.equals(email, user.email) && Objects.equals(inss, user.inss);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, email, INSS);
+        return Objects.hash(userId, email, inss);
     }
 }

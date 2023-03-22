@@ -12,16 +12,16 @@ public class UserDTO {
     private String lastName;
     private String email;
     private Address address;
-    private String INSS;
+    private String inss;
     private Role role;
 
-    public UserDTO(UUID userId, String firstName, String lastName, String email, Address address, String iNSS, Role role) {
+    public UserDTO(UUID userId, String firstName, String lastName, String email, Address address, String inss, Role role) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
-        this.INSS = iNSS;
+        this.inss = inss;
         this.role = role;
     }
 
@@ -45,8 +45,8 @@ public class UserDTO {
         return address;
     }
 
-    public String getINSS() {
-        return INSS;
+    public String getInss() {
+        return inss;
     }
 
     public Role getRole() {
@@ -62,11 +62,11 @@ public class UserDTO {
             return false;
         }
         UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(firstName, userDTO.firstName) && Objects.equals(lastName, userDTO.lastName) && Objects.equals(email, userDTO.email) && Objects.equals(address, userDTO.address) && Objects.equals(INSS, userDTO.INSS) && role == userDTO.role;
+        return Objects.equals(firstName, userDTO.firstName) && Objects.equals(lastName, userDTO.lastName) && Objects.equals(email, userDTO.email) && Objects.equals(address, userDTO.address) && Objects.equals(inss, userDTO.inss) && role == userDTO.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, address, INSS, role);
+        return Objects.hash(firstName, lastName, email, address, inss, role);
     }
 }

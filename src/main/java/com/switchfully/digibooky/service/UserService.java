@@ -24,7 +24,7 @@ public class UserService {
 
 	public UserDTO createNewUser(CreateUserDTO newUser){
 		validateMandatoryFields(newUser);
-		validateINSS(newUser.getINSS());
+		validateInss(newUser.getInss());
 		validateEmail(newUser.getEmail());
 		return userMapper.mapToDTO(userRepository.addUser(userMapper.mapToDomain(newUser)));
 	}
@@ -33,8 +33,8 @@ public class UserService {
 		return createNewUser(Role.setRoleToMember(newUser));
 	}
 
-	public UserDTO getUserByINSS(String INSS){
-		return userRepository.getUserByINSS(INSS)
+	public UserDTO getUserByInss(String inss){
+		return userRepository.getUserByINSS(inss)
 				.map(userMapper::mapToDTO)
 				.orElse(null);
 	}
@@ -43,7 +43,7 @@ public class UserService {
 		if(newUser.getLastName() == null){
 			throw new MandatoryFieldException("The lastname field cannot be empty");
 		}
-		if(newUser.getINSS() == null){
+		if(newUser.getInss() == null){
 			throw new MandatoryFieldException("The INSS field cannot be empty");
 		}
 		if(newUser.getEmail() == null){
@@ -54,9 +54,9 @@ public class UserService {
 		}
 	}
 
-	public void validateINSS(String INSS){
-		if(!validateUniqueINSS(INSS)){
-			throw new InvalidINSSException( INSS + " is not a unique INSS.");
+	public void validateInss(String inss){
+		if(!validateUniqueInss(inss)){
+			throw new InvalidINSSException( inss + " is not a unique INSS.");
 		}
 	}
 
@@ -85,10 +85,10 @@ public class UserService {
 				.noneMatch(user -> user.getEmail().equals(email));
 	}
 
-	public boolean validateUniqueINSS(String INSS){
+	public boolean validateUniqueInss(String inss){
 		return userRepository.getUserList()
 				.stream()
-				.noneMatch(user -> user.getINSS().equals(INSS));
+				.noneMatch(user -> user.getInss().equals(inss));
 	}
 
 
