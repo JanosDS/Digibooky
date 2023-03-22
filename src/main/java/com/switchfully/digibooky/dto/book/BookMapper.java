@@ -16,6 +16,6 @@ public class BookMapper {
 	}
 
 	private BookDTO mapToDTO(Book book){
-		return new BookDTO(book.getISBN(), book.getTitle(), book.getAuthorList(), book.getSummary(), book.isAvailable());
+		return new BookDTO(book.getISBN(), book.getTitle(), book.getAuthorList());
 	}
 }

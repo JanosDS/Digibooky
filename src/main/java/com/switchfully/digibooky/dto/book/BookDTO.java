@@ -11,15 +11,10 @@ public class BookDTO {
 
 	private final List<Author> authorList;
 
-	private final String summary;
-	private boolean isAvailable;
-
-	public BookDTO(String ISBN, String title, List<Author> authorList, String summary, boolean isAvailable) {
+	public BookDTO(String ISBN, String title, List<Author> authorList) {
 		this.ISBN = ISBN;
 		this.title = title;
 		this.authorList = authorList;
-		this.summary = summary;
-		this.isAvailable = isAvailable;
 	}
 
 	public String getISBN() {
@@ -34,11 +29,4 @@ public class BookDTO {
 		return authorList;
 	}
 
-	public String getSummary() {
-		return summary;
-	}
-
-	public boolean isAvailable() {
-		return isAvailable;
-	}
 }
