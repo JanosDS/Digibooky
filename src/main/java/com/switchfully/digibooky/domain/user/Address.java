@@ -1,11 +1,9 @@
-package com.switchfully.digibooky.domain.user;
+package com.switchfully.digibooky.domain;
 
-<<<<<<< HEAD:src/main/java/com/switchfully/digibooky/domain/user/Address.java
-=======
 import org.springframework.stereotype.Component;
 
->>>>>>> JimmyBranch:src/main/java/com/switchfully/digibooky/domain/Address.java
 public class Address {
+
     private final String street;
     private final String houseNumber;
     private final String postalCode;
