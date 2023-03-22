@@ -1,4 +1,4 @@
-package com.switchfully.digibooky.domain.author;
+package com.switchfully.digibooky.domain;
 
 public class Author {
     /** field id ? **/

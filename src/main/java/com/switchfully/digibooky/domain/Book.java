@@ -1,4 +1,4 @@
-package com.switchfully.digibooky.domain.book;
+package com.switchfully.digibooky.domain;
 
 public class Book {
 	private final String ISBN;
