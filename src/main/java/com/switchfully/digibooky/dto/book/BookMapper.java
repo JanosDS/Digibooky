@@ -1,6 +1,6 @@
 package com.switchfully.digibooky.dto.book;
 
-import com.switchfully.digibooky.domain.book.Book;
+import com.switchfully.digibooky.domain.Book;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
