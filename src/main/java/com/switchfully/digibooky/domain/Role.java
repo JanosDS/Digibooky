@@ -1,2 +1,5 @@
-package com.switchfully.digibooky.domain;public enum Role {
+package com.switchfully.digibooky.domain;
+
+public enum Role {
+    ADMIN, LIBRARIAN, MEMBER
 }

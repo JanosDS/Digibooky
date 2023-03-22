@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 @Component
 public class BookMapper {
 
-	private List<BookDTO> mapToDTO(List<Book> bookList){
+	public List<BookDTO> mapToDTO(List<Book> bookList){
 		return bookList.stream()
 				.map(this::mapToDTO)
 				.collect(Collectors.toList());
 	}
 
 	private BookDTO mapToDTO(Book book){
-		return new BookDTO(book.getISBN(), book.getTitle(), book.getSummary(), book.isAvailable());
+		return new BookDTO(book.getISBN(), book.getTitle(), book.getAuthorList(), book.getSummary(), book.isAvailable());
 	}
 }

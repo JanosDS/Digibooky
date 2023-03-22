@@ -9,14 +9,10 @@ import org.springframework.stereotype.Service;
 public class AddressService {
 
     private AddressRepository addressRepository;
-
     private AddressMapper addressMapper;
 
-    private AddressDTO addressDTO;
-
-    public AddressService(AddressRepository addressRepository, AddressMapper addressMapper, AddressDTO addressDTO) {
+    public AddressService(AddressRepository addressRepository, AddressMapper addressMapper) {
         this.addressRepository = addressRepository;
         this.addressMapper = addressMapper;
-        this.addressDTO = addressDTO;
     }
 }

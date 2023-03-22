@@ -1,5 +1,4 @@
 package com.switchfully.digibooky.repository;
-
 import com.switchfully.digibooky.domain.book.Book;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +12,12 @@ public class BookRepository {
 
 	public BookRepository() {
 		this.bookList = new ArrayList<>();
+	}
+	public List<Book> getAll() {
+		return bookList;
+	}
+
+	public void putBookInList(Book book){
+		bookList.add(book);
 	}
 }

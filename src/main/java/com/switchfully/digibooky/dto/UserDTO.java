@@ -1,5 +1,8 @@
 package com.switchfully.digibooky.dto;
 
+import com.switchfully.digibooky.domain.Address;
+import com.switchfully.digibooky.domain.Role;
+
 import java.util.UUID;
 
 public class UserDTO {
