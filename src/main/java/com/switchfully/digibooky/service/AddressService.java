@@ -14,9 +14,8 @@ public class AddressService {
 
     private AddressDTO addressDTO;
 
-    public AddressService(AddressRepository addressRepository, AddressMapper addressMapper, AddressDTO addressDTO) {
+    public AddressService(AddressRepository addressRepository, AddressMapper addressMapper) {
         this.addressRepository = addressRepository;
         this.addressMapper = addressMapper;
-        this.addressDTO = addressDTO;
     }
 }

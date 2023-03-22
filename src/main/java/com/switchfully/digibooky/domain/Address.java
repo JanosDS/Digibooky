@@ -2,7 +2,6 @@ package com.switchfully.digibooky.domain;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public class Address {
 
     private final String street;

@@ -2,7 +2,6 @@ package com.switchfully.digibooky.dto.address;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public class AddressDTO {
     private final String street;
     private final String houseNumber;
@@ -10,7 +9,7 @@ public class AddressDTO {
     private final String city;
     private final String country;
 
-    public AddressDTO(String street, String houseNumber, String postalCode, String city, String country) {
+   public AddressDTO(String street, String houseNumber, String postalCode, String city, String country) {
         this.street = street;
         this.houseNumber = houseNumber;
         this.postalCode = postalCode;

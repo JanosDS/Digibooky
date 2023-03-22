@@ -1,16 +1,21 @@
 package com.switchfully.digibooky.domain.book;
 
+import com.switchfully.digibooky.domain.author.Author;
+
+import java.util.List;
+
 public class Book {
 	private final String ISBN;
 	private final String title;
-	//private final List<Author> authorList;
+	private final List<Author> authorList;
 
 	private final String summary;
 	private boolean isAvailable;
 
-	public Book(String ISBN, String title, String summary, boolean isAvailable) {
+	public Book(String ISBN, String title, List<Author> authorList, String summary, boolean isAvailable) {
 		this.ISBN = ISBN;
 		this.title = title;
+		this.authorList = authorList;
 		this.summary = summary;
 		this.isAvailable = isAvailable;
 	}
@@ -33,5 +38,9 @@ public class Book {
 
 	public boolean isAvailable() {
 		return isAvailable;
+	}
+
+	public List<Author> getAuthorList() {
+		return authorList;
 	}
 }
