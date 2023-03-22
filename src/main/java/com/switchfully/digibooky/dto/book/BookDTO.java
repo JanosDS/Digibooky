@@ -1,19 +1,55 @@
 package com.switchfully.digibooky.dto.book;
 
-public class BookDTO {
-	private final String ISBN;
-	private final String title;
-	//private final List<Author> authorList;
+import com.switchfully.digibooky.domain.author.Author;
 
-	private final String summary;
+import java.util.List;
+
+public class BookDTO {
+	private final String isbn;
+	private  String title;
+	private  List<Author> authorList;
+
+	private  String summary;
 	private boolean isAvailable;
 
-	public BookDTO(String ISBN, String title, String summary, boolean isAvailable) {
-		this.ISBN = ISBN;
+	public BookDTO(String isbn, String title, List<Author> authorList, String summary, boolean isAvailable) {
+		this.isbn = isbn;
 		this.title = title;
+		this.authorList = authorList;
 		this.summary = summary;
 		this.isAvailable = isAvailable;
 	}
+	public String getIsbn() {
+		return isbn;
+	}
 
+    public String getTitle() {
+		return title;
+    }
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public List<Author> getAuthorList() {
+		return authorList;
+	}
+
+	public void setAvailable(boolean available) {
+		isAvailable = available;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+	public void setAuthorList(List<Author> authorList) {
+		this.authorList = authorList;
+	}
 
 }

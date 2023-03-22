@@ -8,7 +8,7 @@ public class AddressDTO {
     private final String city;
     private final String country;
 
-    public AddressDTO(String street, String houseNumber, String postalCode, String city, String country) {
+   public AddressDTO(String street, String houseNumber, String postalCode, String city, String country) {
         this.street = street;
         this.houseNumber = houseNumber;
         this.postalCode = postalCode;
