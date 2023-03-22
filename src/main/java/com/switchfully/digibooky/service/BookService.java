@@ -17,7 +17,7 @@ public class BookService {
 		this.bookRepository = bookRepository;
 	}
 	public List<BookDTO> getAllBooks() {
-		return bookMapper.mapToDTO(bookRepository.getAll());
+		return bookMapper.mapToDTO(bookRepository.getAllBooks());
 
 	}
 }

@@ -1,31 +1,32 @@
 package com.switchfully.digibooky.dto.book;
 
 import com.switchfully.digibooky.domain.author.Author;
+import com.switchfully.digibooky.dto.author.AuthorDto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BookDTO {
-	private final String ISBN;
+
+	//isbn lowercase
+	private final String isbn;
 	private final String title;
+	private final List<AuthorDto> authorList;
 
-	private final List<Author> authorList;
-
-	public BookDTO(String ISBN, String title, List<Author> authorList) {
-		this.ISBN = ISBN;
+	public BookDTO(String isbn, String title, List<AuthorDto> authorList) {
+		this.isbn = isbn;
 		this.title = title;
 		this.authorList = authorList;
 	}
 
-	public String getISBN() {
-		return ISBN;
+	public String getIsbn() {
+		return isbn;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public List<Author> getAuthorList() {
+	public List<AuthorDto> getAuthorList() {
 		return authorList;
 	}
 

@@ -1,7 +1,12 @@
 package com.switchfully.digibooky.dto.author;
 
 import com.switchfully.digibooky.domain.author.Author;
+import com.switchfully.digibooky.domain.book.Book;
+import com.switchfully.digibooky.dto.book.BookDTO;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class AuthorMapper {
@@ -16,5 +21,11 @@ public class AuthorMapper {
         return new AuthorDto()
                 .setFirstName(author.getFirstName())
                 .setLastName(author.getLastName());
+    }
+
+    public List<AuthorDto> mapToDTO(List<Author> authorList){
+        return authorList.stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 }

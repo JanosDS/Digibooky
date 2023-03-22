@@ -13,10 +13,12 @@ public class BookRepository {
 	public BookRepository() {
 		this.bookList = new ArrayList<>();
 	}
-	public List<Book> getAll() {
+
+	public List<Book> getAllBooks() {
 		return bookList;
 	}
 
+	//for testing purposes
 	public void putBookInList(Book book){
 		bookList.add(book);
 	}
