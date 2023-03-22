@@ -33,4 +33,8 @@ public class Address {
     public String getCountry() {
         return country;
     }
+
+    public String getNumber() {
+        return houseNumber;
+    }
 }
