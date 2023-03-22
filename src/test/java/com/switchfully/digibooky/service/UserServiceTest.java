@@ -8,10 +8,12 @@ import com.switchfully.digibooky.dto.user.UserMapper;
 import com.switchfully.digibooky.exception.MandatoryFieldException;
 import com.switchfully.digibooky.repository.UserRepository;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
+
 	private UserService userService;
 
 	@BeforeEach
@@ -127,7 +129,7 @@ class UserServiceTest {
 	@DisplayName("Test creation of a new user, and finding it in the repo")
 	void addNewUser(){
 		CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "mail@mail.com", new CreateAddressDTO("street","25", "PC", "City", "Country"), "xxx");
-		UserDTO resultUserDTO = userService.createNewUser(newUser);
+		UserDTO resultUserDTO = userService.createNewMemberUser(newUser);
 		UserDTO expectedUserDTO = userService.getUserByINSS(newUser.getINSS());
 		Assertions.assertEquals(expectedUserDTO, resultUserDTO);
 	}

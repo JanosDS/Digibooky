@@ -1,6 +1,7 @@
 package com.switchfully.digibooky.dto.user;
 
 import com.switchfully.digibooky.dto.user.address.CreateAddressDTO;
+import com.switchfully.digibooky.domain.user.Role;
 
 public class CreateUserDTO {
 	private String firstName;
@@ -8,6 +9,7 @@ public class CreateUserDTO {
 	private String email;
 	private CreateAddressDTO address;
 	private String INSS;
+	private Role role;
 
 	public CreateUserDTO(String firstName, String lastName, String email, CreateAddressDTO address, String INSS) {
 		this.firstName = firstName;
@@ -35,5 +37,14 @@ public class CreateUserDTO {
 
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public CreateUserDTO setRole(Role role) {
+		this.role = role;
+		return this;
 	}
 }

@@ -1,5 +1,6 @@
 package com.switchfully.digibooky.service;
 
+import com.switchfully.digibooky.domain.user.Role;
 import com.switchfully.digibooky.dto.user.CreateUserDTO;
 import com.switchfully.digibooky.dto.user.UserDTO;
 import com.switchfully.digibooky.dto.user.UserMapper;
@@ -26,6 +27,10 @@ public class UserService {
 		validateINSS(newUser.getINSS());
 		validateEmail(newUser.getEmail());
 		return userMapper.mapToDTO(userRepository.addUser(userMapper.mapToDomain(newUser)));
+	}
+
+	public UserDTO createNewMemberUser(CreateUserDTO newUser){
+		return createNewUser(Role.setRoleToMember(newUser));
 	}
 
 	public UserDTO getUserByINSS(String INSS){

@@ -19,7 +19,7 @@ public class UserMapper {
     }
 
     public User mapToDomain(CreateUserDTO createUserDTO){
-        return new User(createUserDTO.getFirstName(), createUserDTO.getLastName(), createUserDTO.getEmail(), addressMapper.mapToDomain(createUserDTO.getAddress()), createUserDTO.getINSS(), Role.MEMBER);
+        return new User(createUserDTO.getFirstName(), createUserDTO.getLastName(), createUserDTO.getEmail(), addressMapper.mapToDomain(createUserDTO.getAddress()), createUserDTO.getINSS(), createUserDTO.getRole());
     }
 
 }
