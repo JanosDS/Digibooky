@@ -1,4 +1,4 @@
-package com.switchfully.digibooky.domain;
+package com.switchfully.digibooky.domain.user;
 
 public class Address {
     private final String street;

@@ -1,16 +1,34 @@
 package com.switchfully.digibooky.repository;
 
-import com.switchfully.digibooky.domain.User;
+import com.switchfully.digibooky.domain.user.Address;
+import com.switchfully.digibooky.domain.user.Role;
+import com.switchfully.digibooky.domain.user.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class UserRepository {
-    private HashMap<UUID, User> userById;
+    private List<User> userList;
     public UserRepository() {
-        this.userById = new HashMap<>();
+        this.userList = new ArrayList<>();
+
+        //Add user for testing purposes
+        userList.add(new User("Janos", "Descheemaeker", "janosdescheemaeker@hotmail.com", new Address("Leiestraat", "29", "9000", "Gent", "Belgium"), "MyINSS", Role.MEMBER));
     }
 
+    public List<User> getUserList() {
+        return userList;
+    }
+
+	public User addUser(User user) {
+		userList.add(user);
+		return user;
+	}
+
+	public Optional<User> getUserByINSS(String INSS) {
+		return userList.stream()
+				.filter(user -> user.getInss().equals(INSS))
+				.findFirst();
+	}
 }
