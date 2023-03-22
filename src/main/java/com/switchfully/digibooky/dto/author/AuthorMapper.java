@@ -12,8 +12,8 @@ public class AuthorMapper {
         return new Author("firstName", "lastName");
     }
     
-    public AuthorDto mapToDto(Author author) {
-        return new AuthorDto()
+    public AuthorDTO mapToDto(Author author) {
+        return new AuthorDTO()
                 .setFirstName(author.getFirstName())
                 .setLastName(author.getLastName());
     }

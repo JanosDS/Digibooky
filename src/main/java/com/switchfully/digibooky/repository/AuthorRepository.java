@@ -1,4 +1,4 @@
-package com.switchfully.digibooky.repository.author;
+package com.switchfully.digibooky.repository;
 
 import com.switchfully.digibooky.domain.author.Author;
 import org.springframework.stereotype.Repository;

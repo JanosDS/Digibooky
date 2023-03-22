@@ -1,4 +1,4 @@
-package com.switchfully.digibooky.dto;
+package com.switchfully.digibooky.dto.rental;
 
 
 import com.switchfully.digibooky.domain.Rental;

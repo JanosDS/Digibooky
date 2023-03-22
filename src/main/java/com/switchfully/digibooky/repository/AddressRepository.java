@@ -8,5 +8,5 @@ import java.util.List;
 
 @Component
 public class AddressRepository {
-    private static List<Address> addressList;
+    private List<Address> addressList;
 }

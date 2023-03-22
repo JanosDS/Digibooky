@@ -1,7 +1,7 @@
 package com.switchfully.digibooky.service;
 
 import com.switchfully.digibooky.dto.address.AddressDTO;
-import com.switchfully.digibooky.dto.address.mapper.AddressMapper;
+import com.switchfully.digibooky.dto.address.AddressMapper;
 import com.switchfully.digibooky.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 

@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public class RentalRepository {
-    List<Rental> rentals;
+    private List<Rental> rentals;
 }

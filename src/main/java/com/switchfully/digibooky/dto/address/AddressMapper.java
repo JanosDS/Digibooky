@@ -1,4 +1,4 @@
-package com.switchfully.digibooky.dto.address.mapper;
+package com.switchfully.digibooky.dto.address;
 
 import com.switchfully.digibooky.domain.Address;
 import com.switchfully.digibooky.dto.address.AddressDTO;

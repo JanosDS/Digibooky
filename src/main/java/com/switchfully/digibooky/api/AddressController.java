@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "addresses")
+@RequestMapping(path = "address")
 public class AddressController {
 
     private AddressService addressService;
