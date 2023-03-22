@@ -10,4 +10,8 @@ public class RentalMapper {
     private RentalDTO mapToDTO(Rental rental){
         return null;
     }
+
+    private Rental mapToDomain(RentalDTO rentalDTO){
+        return  null;
+    }
 }
