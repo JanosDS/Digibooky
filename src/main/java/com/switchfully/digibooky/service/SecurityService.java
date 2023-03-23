@@ -3,13 +3,14 @@ package com.switchfully.digibooky.service;
 
 import com.switchfully.digibooky.domain.user.Feature;
 import com.switchfully.digibooky.domain.user.User;
-import com.switchfully.digibooky.dto.user.UsernamePassword;
+import com.switchfully.digibooky.dto.user.UuidPassword;
 import com.switchfully.digibooky.exception.UnauthorizedException;
 import com.switchfully.digibooky.exception.UserNotFoundException;
 import com.switchfully.digibooky.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
+import java.util.UUID;
 
 @Service
 public class SecurityService {
@@ -24,12 +25,12 @@ public class SecurityService {
 		if(auth == null){
 			throw new UnauthorizedException("Not authorized.");
 		}
-		UsernamePassword usernamePassword = getUsernamePassword(auth);
+		UuidPassword uuidPassword = getUsernamePassword(auth);
 
-		User user = userRepository.findUserForUsername(usernamePassword.getUsername())
-				.orElseThrow(() -> new UserNotFoundException("No user found with username: " + usernamePassword.getUsername()));
+		User user = userRepository.getUserByUuid(uuidPassword.getUuid())
+				.orElseThrow(() -> new UserNotFoundException("No user found with UUID: " + uuidPassword.getUuid()));
 
-		if (!user.doesPasswordMatch(usernamePassword.getPassword())) {
+		if (!user.doesPasswordMatch(uuidPassword.getPassword())) {
 			throw new UnauthorizedException("Wrong password for user used.");
 		}
 		if (!user.hasAccessTo(feature)) {
@@ -38,10 +39,10 @@ public class SecurityService {
 
 	}
 
-	private UsernamePassword getUsernamePassword(String auth) {
+	private UuidPassword getUsernamePassword(String auth) {
 		String decodedUsernamePassword = new String(Base64.getDecoder().decode(auth.substring("basic ".length())));
-		String username = decodedUsernamePassword.substring(0, decodedUsernamePassword.indexOf(":"));
+		UUID uuid = UUID.fromString(decodedUsernamePassword.substring(0, decodedUsernamePassword.indexOf(":")));
 		String password = decodedUsernamePassword.substring(decodedUsernamePassword.indexOf(":") + 1);
-		return new UsernamePassword(username, password);
+		return new UuidPassword(uuid, password);
 	}
 }

@@ -35,9 +35,15 @@ public class UserRepository {
 				.findFirst();
 	}
 
-	public Optional<User> findUserForUsername(String username) {
+	public Optional<User> getUserByFirstname(String firstname) {
 		return userList.stream()
-				.filter(user -> user.getFirstName().equals(username))
+				.filter(user -> user.getFirstName().equals(firstname))
+				.findFirst();
+	}
+
+	public Optional<User> getUserByUuid(UUID uuid){
+		return userList.stream()
+				.filter(user -> user.getUserId().equals(uuid))
 				.findFirst();
 	}
 

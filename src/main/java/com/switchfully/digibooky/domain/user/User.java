@@ -11,7 +11,6 @@ public class User {
     private Address address;
     private String inss;
     private Role role;
-
     private String password;
 
     public User(String firstName, String lastName, String email, Address address, String inss, Role role, String password) {

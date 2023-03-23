@@ -50,7 +50,7 @@ class SecurityServiceTest {
 		@DisplayName("security validation test")
 		void validAdminProvided_featureGetAllMembers() {
 			//create Authtoken
-			String usernamePassword = admin.getFirstName() + ":" + admin.getPassword();
+			String usernamePassword = admin.getUserId() + ":" + admin.getPassword();
 			securityService.validateAuthorization(encodeAuth(usernamePassword), Feature.VIEW_ALL_MEMBERS);
 		}
 
@@ -58,7 +58,7 @@ class SecurityServiceTest {
 		@DisplayName("security validation test")
 		void invalidAdminProvided_featureGetAllMembers_throwException() {
 			//create Authtoken
-			String usernamePassword = notAdmin.getFirstName() + ":" + notAdmin.getPassword();
+			String usernamePassword = notAdmin.getUserId() + ":" + notAdmin.getPassword();
 			Exception exception = assertThrows(UnauthorizedException.class, () -> {
 				securityService.validateAuthorization(encodeAuth(usernamePassword), Feature.VIEW_ALL_MEMBERS);
 			});
