@@ -31,7 +31,7 @@ public class SecurityService {
 		} catch(IllegalArgumentException exception){
 			throw new UnauthorizedException("No valid UUID was provided.");
 		}
-		User user = userRepository.getUserByUuid(uuidPassword.getUuid())
+		User user = userRepository.getUserByUUID(uuidPassword.getUuid())
 				.orElseThrow(() -> new UserNotFoundException("No user found with UUID: " + uuidPassword.getUuid()));
 
 		if (!user.doesPasswordMatch(uuidPassword.getPassword())) {

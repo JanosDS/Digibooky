@@ -21,10 +21,10 @@ public class BookRepository {
 				.findFirst()
 				.orElse(null);
 	}
-	public Book addBook(Book bookToStore1) {
-		bookList.add(bookToStore1);
-		return bookToStore1;
-	}
+//	public Book addBook(Book bookToStore1) {
+//		bookList.add(bookToStore1);
+//		return bookToStore1;
+//	}
 	public List<Book> getAllBooks() {
 		return bookList;
 	}
@@ -41,6 +41,14 @@ public class BookRepository {
 				.filter(book -> book.getTitle().equals(title))
 				.findFirst()
 				.orElse(null);
+	}
+
+	public void removeBook(Book bookToRemove) {
+		bookList.remove(bookToRemove);
+	}
+	public Book addBook(Book bookToAdd) {
+		bookList.add(bookToAdd);
+		return bookToAdd;
 	}
 }
 

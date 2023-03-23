@@ -5,19 +5,19 @@ import java.util.UUID;
 import com.switchfully.digibooky.domain.user.User;
 
 public class Rental {
-    private String isbn;
-    private final UUID userId;
-    private final UUID rentalId;
-    private final LocalDate dueDate;
+    private String ISBN;
+    private UUID userId;
+    private UUID rentalId;
+    private LocalDate dueDate;
 
     public Rental(Book book, User user) {
-        this.isbn = book.getIsbn();
+        this.ISBN = book.getIsbn();
         this.userId = user.getUserId();
         this.rentalId = UUID.randomUUID();
         this.dueDate = calculateDueDate();
     }
-    public Rental(String isbn, UUID userId, UUID rentalId, LocalDate dueDate) {
-        this.isbn = isbn;
+    public Rental(String ISBN, UUID userId, UUID rentalId, LocalDate dueDate) {
+        this.ISBN = ISBN;
         this.userId = userId;
         this.rentalId = rentalId;
         this.dueDate = dueDate;
@@ -30,7 +30,7 @@ public class Rental {
     }
 
     public String getIsbn() {
-        return isbn;
+        return ISBN;
     }
 
     public UUID getUserId() {
@@ -41,8 +41,8 @@ public class Rental {
         return dueDate;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
 }
