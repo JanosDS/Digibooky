@@ -1,6 +1,5 @@
 package com.switchfully.digibooky.domain.user;
 
-import org.springframework.stereotype.Component;
 
 public class Address {
 
@@ -20,9 +19,7 @@ public class Address {
     public String getStreet() {
         return street;
     }
-    public String getHouseNumber() {
-        return houseNumber;
-    }
+
     public String getPostalCode() {
         return postalCode;
     }

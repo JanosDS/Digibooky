@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class RentalRepository {
@@ -19,9 +20,15 @@ public class RentalRepository {
     public List<Rental> getRentals() {
         return rentals;
     }
-    public Rental getById(String rentalId) {
+    public Rental getById(UUID rentalId) {
         return rentals.stream()
                 .filter(rental -> rental.getRentalId().equals(rentalId))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Rental getByIsbn(String isbn){
+        return rentals.stream().filter(rental -> rental.getIsbn().equals(isbn))
                 .findFirst()
                 .orElse(null);
     }

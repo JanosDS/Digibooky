@@ -2,6 +2,7 @@ package com.switchfully.digibooky.dto.user;
 
 import com.switchfully.digibooky.domain.user.Address;
 import com.switchfully.digibooky.domain.user.Role;
+import com.switchfully.digibooky.dto.user.address.AddressDTO;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -11,15 +12,15 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private Address address;
+    private AddressDTO addressDTO;
     private Role role;
 
-    public UserDTO(UUID userId, String firstName, String lastName, String email, Address address, Role role) {
+    public UserDTO(UUID userId, String firstName, String lastName, String email, AddressDTO addressDTO, Role role) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.address = address;
+        this.addressDTO = addressDTO;
         this.role = role;
     }
 
@@ -39,8 +40,8 @@ public class UserDTO {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public AddressDTO getAddress() {
+        return addressDTO;
     }
 
     public Role getRole() {
@@ -49,18 +50,14 @@ public class UserDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(firstName, userDTO.firstName) && Objects.equals(lastName, userDTO.lastName) && Objects.equals(email, userDTO.email) && Objects.equals(address, userDTO.address) && role == userDTO.role;
+        return Objects.equals(userId, userDTO.userId) && Objects.equals(firstName, userDTO.firstName) && Objects.equals(lastName, userDTO.lastName) && Objects.equals(email, userDTO.email) && Objects.equals(addressDTO, userDTO.addressDTO) && role == userDTO.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, address, role);
+        return Objects.hash(userId, firstName, lastName, email, addressDTO, role);
     }
 }

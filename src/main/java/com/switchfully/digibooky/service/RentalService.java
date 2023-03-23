@@ -24,10 +24,11 @@ public class RentalService {
     }
 
     public void rentBook(String title, String lastName, String firstName) {
-        String ISBN = bookRepository.getBookByTitle(title).getISBN();
+        String ISBN = bookRepository.getBookByTitle(title).getIsbn();
         Book book = bookRepository.getById(ISBN);
         User user = userRepository.getUserByName(lastName, firstName)
                 .orElseThrow(() -> new UserNotFoundException("User could not be found."));
+
         if(book.isAvailable()) {
             Rental rental = new Rental(book, user);
             rentalRepository.addRental(rental);
