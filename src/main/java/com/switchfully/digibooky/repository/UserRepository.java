@@ -6,6 +6,7 @@ import com.switchfully.digibooky.domain.user.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository {
@@ -30,5 +31,23 @@ public class UserRepository {
 		return userList.stream()
 				.filter(user -> user.getInss().equals(INSS))
 				.findFirst();
+	}
+
+	public Optional<User> getUserByFirstname(String firstname) {
+		return userList.stream()
+				.filter(user -> user.getFirstName().equals(firstname))
+				.findFirst();
+	}
+
+	public Optional<User> getUserByUuid(UUID uuid){
+		return userList.stream()
+				.filter(user -> user.getUserId().equals(uuid))
+				.findFirst();
+	}
+
+	public List<User> getAllMembers(){
+		return userList.stream()
+				.filter(user -> user.getRole().equals(Role.MEMBER))
+				.collect(Collectors.toList());
 	}
 }
