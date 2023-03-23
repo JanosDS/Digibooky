@@ -1,4 +1,4 @@
-package com.switchfully.digibooky.domain;
+package com.switchfully.digibooky.domain.user;
 
 import org.springframework.stereotype.Component;
 

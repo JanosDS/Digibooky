@@ -1,7 +1,8 @@
 package com.switchfully.digibooky;
 
-import com.switchfully.digibooky.domain.author.Author;
+import com.switchfully.digibooky.domain.Author;
 import com.switchfully.digibooky.domain.book.Book;
+import com.switchfully.digibooky.dto.author.AuthorMapper;
 import com.switchfully.digibooky.dto.book.BookDTO;
 import com.switchfully.digibooky.dto.book.BookMapper;
 import com.switchfully.digibooky.repository.BookRepository;
@@ -16,7 +17,7 @@ public class ISBNTest {
     void name() {
 
         BookRepository bookRepository = new BookRepository();
-        BookMapper bookMapper = new BookMapper();
+        BookMapper bookMapper = new BookMapper(new AuthorMapper());
         BookService bookService = new BookService(bookMapper, bookRepository);
         List<Author> authorList = List.of(new Author("Jimmy", "Sirius"));
         Book bookToStore1 = new Book("randomISBN12345", "LOL", authorList, "summary", true);

@@ -1,6 +1,6 @@
 package com.switchfully.digibooky.domain.book;
 
-import com.switchfully.digibooky.domain.author.Author;
+import com.switchfully.digibooky.domain.Author;
 
 import java.util.List;
 

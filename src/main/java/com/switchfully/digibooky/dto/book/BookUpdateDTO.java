@@ -1,6 +1,6 @@
 package com.switchfully.digibooky.dto.book;
 
-import com.switchfully.digibooky.domain.author.Author;
+import com.switchfully.digibooky.domain.Author;
 
 import java.util.List;
 public class BookUpdateDTO {
