@@ -13,6 +13,10 @@ public enum Role {
 			new ArrayList<>(){{
 				add(Feature.VIEW_ALL_MEMBERS);
 			}}
+	),
+	LIBRARIAN(
+			new ArrayList<>(){{add(Feature.CREATE_BOOK);
+			}}
 	);
 
 
