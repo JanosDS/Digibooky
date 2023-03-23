@@ -24,6 +24,13 @@ public class BookRepository {
 				.findFirst()
 				.orElse(null);
 	}
+
+	public Book getDeletedBookById(String Isbn) {
+		return deletedBooks.stream()
+				.filter(book -> book.getISBN().equals(Isbn))
+				.findFirst()
+				.orElse(null);
+	}
 	public void putBookInList(Book bookToStore1) {
 		bookList.add(bookToStore1);
 	}
@@ -35,6 +42,11 @@ public class BookRepository {
 	public List<Book> getBookList() {
 		return bookList;
 	}
+
+	public List<Book> getDeletedBooks() {
+		return deletedBooks;
+	}
+
 	public void updateBook(Book bookToUpdate) {
 		bookList.remove(bookToUpdate);
 		bookList.add(bookToUpdate);
@@ -44,5 +56,10 @@ public class BookRepository {
 		bookList.remove(bookToDelete);
 		deletedBooks.add(bookToDelete);
     }
+
+	public void unDeleteBook(Book bookToUnDelete) {
+		deletedBooks.remove(bookToUnDelete);
+		bookList.add(bookToUnDelete);
+	}
 }
 

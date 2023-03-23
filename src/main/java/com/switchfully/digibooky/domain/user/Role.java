@@ -17,6 +17,7 @@ public enum Role {
 	LIBRARIAN(
 			new ArrayList<>(){{
 				add(Feature.DELETE_BOOK);
+				add(Feature.UNDELETE_BOOK);
 			}}
 	);
 

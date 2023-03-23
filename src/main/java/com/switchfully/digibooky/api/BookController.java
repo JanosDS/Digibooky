@@ -1,7 +1,10 @@
 package com.switchfully.digibooky.api;
 
+import com.switchfully.digibooky.domain.user.Feature;
 import com.switchfully.digibooky.dto.book.BookDTO;
+import com.switchfully.digibooky.dto.user.UserDTO;
 import com.switchfully.digibooky.service.BookService;
+import com.switchfully.digibooky.service.SecurityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.switchfully.digibooky.dto.book.BookUpdateDTO;
@@ -13,9 +16,11 @@ import java.util.List;
 public class BookController {
 
     private BookService bookService;
+    private SecurityService securityService;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, SecurityService securityService) {
         this.bookService = bookService;
+        this.securityService = securityService;
     }
 
     @GetMapping(produces = "application/json")
@@ -48,8 +53,15 @@ public class BookController {
     }
 
     @DeleteMapping(path = "/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public BookDTO deleteBook(@PathVariable String id) {
+    public BookDTO deleteBook(@PathVariable String id, @RequestHeader String authorization) {
+        securityService.validateAuthorization(authorization, Feature.DELETE_BOOK);
         return bookService.deleteBook(id);
     }
+
+    @PutMapping(path = "/{id}")
+    public BookDTO unDeleteBook(@PathVariable String id, @RequestHeader String authorization) {
+        securityService.validateAuthorization(authorization, Feature.UNDELETE_BOOK);
+        return bookService.unDeleteBook(id);
+    }
+
 }

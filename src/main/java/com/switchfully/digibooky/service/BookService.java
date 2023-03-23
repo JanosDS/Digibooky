@@ -58,5 +58,11 @@ public class BookService {
 		bookRepository.deleteBook(bookToDelete);
 		return bookMapper.mapToDTO(bookToDelete);
     }
+
+	public BookDTO unDeleteBook(String id) {
+		Book bookToUnDelete = bookRepository.getDeletedBookById(id);
+		bookRepository.unDeleteBook(bookToUnDelete);
+		return bookMapper.mapToDTO(bookToUnDelete);
+	}
 }
 
