@@ -23,15 +23,22 @@ public class UserService {
 		this.userMapper = userMapper;
 	}
 
-	public UserDTO createNewUser(CreateUserDTO newUser){
-		validateMandatoryFields(newUser);
+	public UserDTO createNewMemberUser(CreateUserDTO newUser){
+		validateMandatoryMemberFields(newUser);
 		validateInss(newUser.getInss());
 		validateEmail(newUser.getEmail());
-		return userMapper.mapToDTO(userRepository.addUser(userMapper.mapToDomain(newUser)));
+		return userMapper.mapToDTO(userRepository.addUser(userMapper.mapToDomain(Role.setRoleToMember(newUser))));
 	}
 
-	public UserDTO createNewMemberUser(CreateUserDTO newUser){
-		return createNewUser(Role.setRoleToMember(newUser));
+	public UserDTO createNewLibrarianUser(CreateUserDTO newUser){
+		validateMandatoryAdminAndLibrarianFields(newUser);
+		validateEmail(newUser.getEmail());
+		return userMapper.mapToDTO(userRepository.addUser(userMapper.mapToDomain(Role.setRoleToLibrarian(newUser))));
+	}
+	public UserDTO createNewAdminUser(CreateUserDTO newUser){
+		validateMandatoryAdminAndLibrarianFields(newUser);
+		validateEmail(newUser.getEmail());
+		return userMapper.mapToDTO(userRepository.addUser(userMapper.mapToDomain(Role.setRoleToAdmin(newUser))));
 	}
 
 	public UserDTO getUserByInss(String inss){
@@ -40,7 +47,19 @@ public class UserService {
 				.orElse(null);
 	}
 
-	public void validateMandatoryFields(CreateUserDTO newUser){
+	public void validateMandatoryAdminAndLibrarianFields(CreateUserDTO newUser){
+		if(newUser.getEmail() == null){
+			throw new MandatoryFieldException("The email field cannot be empty");
+		}
+		if(newUser.getFirstName() == null){
+			throw new MandatoryFieldException("The firstname field cannot be empty");
+		}
+		if(newUser.getLastName() == null){
+			throw new MandatoryFieldException("The lastname field cannot be empty");
+		}
+	}
+
+	public void validateMandatoryMemberFields(CreateUserDTO newUser){
 		if(newUser.getLastName() == null){
 			throw new MandatoryFieldException("The lastname field cannot be empty");
 		}
@@ -91,7 +110,6 @@ public class UserService {
 				.stream()
 				.noneMatch(user -> user.getInss().equals(inss));
 	}
-
 
 	public List<UserDTO> getAllMembers() {
 		return userMapper.mapToDTO(userRepository.getAllMembers());

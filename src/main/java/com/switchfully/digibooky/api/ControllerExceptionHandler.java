@@ -16,4 +16,5 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 	private void unauthorizedException(UnauthorizedException ex, HttpServletResponse response) throws IOException {
 		response.sendError(HttpStatus.FORBIDDEN.value(), ex.getMessage());
 	}
+
 }
