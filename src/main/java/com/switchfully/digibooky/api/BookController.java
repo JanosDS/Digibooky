@@ -25,4 +25,11 @@ public class BookController {
     public List<BookDTO> getAllBooks(){
         return bookService.getAllBooks();
     }
+
+    //just added to merge
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping(path = "/{id}")
+    public void deleteBook(@PathVariable String id) {
+        bookService.deleteBook(id);
+    }
 }
