@@ -78,13 +78,13 @@ class UserServiceTest {
 	}
 
 	@Nested
-	@DisplayName("Validate mandatory fields")
-	class mandatoryFieldsValidation{
+	@DisplayName("Validate mandatory member fields")
+	class mandatoryMemberFieldsValidation{
 		@Test
 		@DisplayName("Validate when every mandatory field is filled in")
 		void allMandatoryFieldsAreFilledIn_isValid(){
 			CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "j", new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyINSS");
-			userService.validateMandatoryFields(newUser);
+			userService.validateMandatoryMemberFields(newUser);
 		}
 
 		@Test
@@ -92,7 +92,7 @@ class UserServiceTest {
 		void lastnameFieldNotFilledIn_isInvalid(){
 			CreateUserDTO newUser = new CreateUserDTO("Firstname", null, "j", new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyINSS");
 			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
-				userService.validateMandatoryFields(newUser);
+				userService.validateMandatoryMemberFields(newUser);
 			});
 		}
 
@@ -101,7 +101,7 @@ class UserServiceTest {
 		void emailFieldNotFilledIn_isInvalid(){
 			CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", null, new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyINSS");
 			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
-				userService.validateMandatoryFields(newUser);
+				userService.validateMandatoryMemberFields(newUser);
 			});
 		}
 
@@ -110,7 +110,7 @@ class UserServiceTest {
 		void cityFieldNotFilledIn_isInvalid(){
 			CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "j", new CreateAddressDTO("street","25", "PC", null, "Country"), "MyINSS");
 			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
-				userService.validateMandatoryFields(newUser);
+				userService.validateMandatoryMemberFields(newUser);
 			});
 		}
 
@@ -119,18 +119,56 @@ class UserServiceTest {
 		void INSSFieldNotFilledIn_isInvalid(){
 			CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "j", new CreateAddressDTO("street","25", "PC", "City", "Country"), null);
 			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
-				userService.validateMandatoryFields(newUser);
+				userService.validateMandatoryMemberFields(newUser);
+			});
+		}
+	}
+
+	@Nested
+	@DisplayName("Validate mandatory admin & librarian fields")
+	class mandatoryAdminLibrarianFieldsValidation{
+		@Test
+		@DisplayName("Validate when every mandatory field is filled in")
+		void allMandatoryFieldsAreFilledIn_isValid(){
+			CreateUserDTO newAdmin = new CreateUserDTO("Firstname", "De", "admin@admin.be", new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyAdminINSS");
+			userService.validateMandatoryAdminAndLibrarianFields(newAdmin);
+		}
+
+		@Test
+		@DisplayName("Validate when lastname field is not filled in")
+		void lastnameFieldNotFilledIn_isInvalid(){
+			CreateUserDTO newUser = new CreateUserDTO("Firstname", null, "j", new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyINSS");
+			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
+				userService.validateMandatoryAdminAndLibrarianFields(newUser);
+			});
+		}
+		@Test
+		@DisplayName("Validate when firstname field is not filled in")
+		void firstnameFieldNotFilledIn_isInvalid(){
+			CreateUserDTO newUser = new CreateUserDTO(null, "lastname", "j", new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyINSS");
+			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
+				userService.validateMandatoryAdminAndLibrarianFields(newUser);
+			});
+		}
+		@Test
+		@DisplayName("Validate when email field is not filled in")
+		void emailFieldNotFilledIn_isInvalid(){
+			CreateUserDTO newUser = new CreateUserDTO("Admin", "lastname", null, new CreateAddressDTO("street","25", "PC", "City", "Country"), "MyINSS");
+			Exception exception = assertThrows(MandatoryFieldException.class, () -> {
+				userService.validateMandatoryAdminAndLibrarianFields(newUser);
 			});
 		}
 	}
 
 	@Test
-	@DisplayName("Test creation of a new user, and finding it in the repo")
-	void addNewUser(){
+	@DisplayName("Test creation of a new member user, and finding it in the repo")
+	void addNewMemberUser(){
 		CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "mail@mail.com", new CreateAddressDTO("street","25", "PC", "City", "Country"), "xxx");
 		UserDTO resultUserDTO = userService.createNewMemberUser(newUser);
 		UserDTO expectedUserDTO = userService.getUserByInss(newUser.getInss());
 		Assertions.assertEquals(expectedUserDTO, resultUserDTO);
 	}
+
+
 
 }
