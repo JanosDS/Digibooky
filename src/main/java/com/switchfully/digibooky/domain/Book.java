@@ -41,4 +41,8 @@ public class Book {
 	public List<Author> getAuthorList() {
 		return authorList;
 	}
+
+	public void setAvailable(boolean available) {
+		isAvailable = available;
+	}
 }
