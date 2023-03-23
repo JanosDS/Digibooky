@@ -21,10 +21,10 @@ public class BookRepository {
 				.findFirst()
 				.orElse(null);
 	}
-	public Book addBook(Book bookToStore1) {
-		bookList.add(bookToStore1);
-		return bookToStore1;
-	}
+//	public Book addBook(Book bookToStore1) {
+//		bookList.add(bookToStore1);
+//		return bookToStore1;
+//	}
 	public List<Book> getAllBooks() {
 		return bookList;
 	}
@@ -46,8 +46,9 @@ public class BookRepository {
 	public void removeBook(Book bookToRemove) {
 		bookList.remove(bookToRemove);
 	}
-	public void addBook(Book bookToAdd) {
+	public Book addBook(Book bookToAdd) {
 		bookList.add(bookToAdd);
+		return bookToAdd;
 	}
 }
 

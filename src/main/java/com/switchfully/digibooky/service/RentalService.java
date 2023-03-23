@@ -3,6 +3,7 @@ package com.switchfully.digibooky.service;
 import com.switchfully.digibooky.domain.Book;
 import com.switchfully.digibooky.domain.Rental;
 import com.switchfully.digibooky.domain.user.User;
+import com.switchfully.digibooky.exception.UserNotFoundException;
 import com.switchfully.digibooky.repository.BookRepository;
 import com.switchfully.digibooky.repository.RentalRepository;
 import com.switchfully.digibooky.repository.UserRepository;
@@ -26,7 +27,7 @@ public class RentalService {
     }
 
     public void rentBook(String title, User user) {
-        String ISBN = bookRepository.getBookByTitle(title).getISBN();
+        String ISBN = bookRepository.getBookByTitle(title).getIsbn();
         Book book = bookRepository.getById(ISBN);
         if(book.isAvailable()) {
             Rental rental = new Rental(book, user);
@@ -39,11 +40,11 @@ public class RentalService {
     }
 
     public void returnBook(Rental rental){
-        String ISBN = rental.getISBN();
+        String ISBN = rental.getIsbn();
         Book book = bookRepository.getById(ISBN);
         UUID userId = rental.getUserId();
-        User user = userRepository.getUserByUUID(userId);
-        if(rental.getISBN().equals(ISBN) && rental.getUserId().equals(user.getUserId())){
+        User user = userRepository.getUserByUUID(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        if(rental.getIsbn().equals(ISBN) && rental.getUserId().equals(user.getUserId())){
             if(rental.getDueDate().isBefore(LocalDate.now())){
                 throw new IllegalArgumentException("Book is overdue");
             }

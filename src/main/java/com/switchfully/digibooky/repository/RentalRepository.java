@@ -43,4 +43,11 @@ public class RentalRepository {
         }
         return overdueRentals;
     }
+
+    public Rental getByIsbn(String isbn) {
+        return rentals.stream()
+                .filter(rental -> rental.getIsbn().equals(isbn))
+                .findFirst()
+                .orElse(null);
+    }
 }
