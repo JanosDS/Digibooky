@@ -22,12 +22,23 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@PostMapping(consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/addMember", consumes = "application/json", produces = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public UserDTO createNewMemberUser(@RequestBody CreateUserDTO createUserDTO){
 		return userService.createNewMemberUser(createUserDTO);
 	}
-
+	@PostMapping(path = "/addLibrarian", consumes = "application/json", produces = "application/json")
+	@ResponseStatus(HttpStatus.CREATED)
+	public UserDTO createNewLibrarianUser(@RequestHeader String authorization, @RequestBody CreateUserDTO createUserDTO){
+		securityService.validateAuthorization(authorization, Feature.CREATE_NEW_LIBRARIAN);
+		return userService.createNewLibrarianUser(createUserDTO);
+	}
+	@PostMapping(path = "/addAdmin", consumes = "application/json", produces = "application/json")
+	@ResponseStatus(HttpStatus.CREATED)
+	public UserDTO createNewAdminUser(@RequestHeader String authorization, @RequestBody CreateUserDTO createUserDTO){
+		securityService.validateAuthorization(authorization, Feature.CREATE_NEW_ADMIN);
+		return userService.createNewAdminUser(createUserDTO);
+	}
 	@GetMapping
 	public UserDTO getUserByInss(@RequestParam(name= "inss") String inss){
 		return userService.getUserByInss(inss);
