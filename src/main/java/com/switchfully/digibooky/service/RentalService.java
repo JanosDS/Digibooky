@@ -8,6 +8,9 @@ import com.switchfully.digibooky.repository.RentalRepository;
 import com.switchfully.digibooky.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 @Service
 public class RentalService {
     //implement services
@@ -22,10 +25,9 @@ public class RentalService {
         this.userRepository = userRepository;
     }
 
-    public void rentBook(String title, String lastName, String firstName) {
+    public void rentBook(String title, User user) {
         String ISBN = bookRepository.getBookByTitle(title).getISBN();
         Book book = bookRepository.getById(ISBN);
-        User user = userRepository.getUserByName(lastName, firstName);
         if(book.isAvailable()) {
             Rental rental = new Rental(book, user);
             rentalRepository.addRental(rental);
@@ -33,6 +35,23 @@ public class RentalService {
         }
         else {
             throw new IllegalArgumentException("Book is not available");
+        }
+    }
+
+    public void returnBook(Rental rental){
+        String ISBN = rental.getISBN();
+        Book book = bookRepository.getById(ISBN);
+        UUID userId = rental.getUserId();
+        User user = userRepository.getUserByUUID(userId);
+        if(rental.getISBN().equals(ISBN) && rental.getUserId().equals(user.getUserId())){
+            if(rental.getDueDate().isBefore(LocalDate.now())){
+                throw new IllegalArgumentException("Book is overdue");
+            }
+            rentalRepository.removeRental(rental);
+            book.setAvailable(true);
+        }
+        else {
+            throw new IllegalArgumentException("Book is not rented by this user");
         }
     }
 }

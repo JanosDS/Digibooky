@@ -1,5 +1,7 @@
 package com.switchfully.digibooky.api;
 
+import com.switchfully.digibooky.domain.Rental;
+import com.switchfully.digibooky.domain.user.User;
 import com.switchfully.digibooky.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,15 @@ public class RentalController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public void rentBook(@RequestBody String title, @RequestBody String lastName, @RequestBody String firstName){
-        rentalService.rentBook(title, lastName, firstName);
+    public void rentBook(@RequestBody String title, @RequestBody User user){
+        rentalService.rentBook(title, user);
     }
+
+  @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping(consumes = "application/json", produces = "application/json")
+    public void returnBook(@RequestBody Rental rental){
+        rentalService.returnBook(rental);
+
+    }
+
 }

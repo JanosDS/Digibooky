@@ -39,4 +39,10 @@ public class UserRepository {
 				.findFirst()
 				.orElse(null);
 	}
+	public User getUserByUUID(UUID userId) {
+		return userList.stream()
+				.filter(user -> user.getUserId().equals(userId))
+				.findFirst()
+				.orElse(null);
+	}
 }

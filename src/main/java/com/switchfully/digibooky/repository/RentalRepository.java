@@ -26,4 +26,7 @@ public class RentalRepository {
                 .orElse(null);
     }
 
+    public void removeRental(Rental rental) {
+        rentals.remove(rental);
+    }
 }

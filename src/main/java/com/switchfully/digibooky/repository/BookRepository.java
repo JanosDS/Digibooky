@@ -44,5 +44,12 @@ public class BookRepository {
 				.findFirst()
 				.orElse(null);
 	}
+
+	public void removeBook(Book bookToRemove) {
+		bookList.remove(bookToRemove);
+	}
+	public void addBook(Book bookToAdd) {
+		bookList.add(bookToAdd);
+	}
 }
 
