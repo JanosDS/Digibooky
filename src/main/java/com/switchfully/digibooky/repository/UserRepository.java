@@ -50,4 +50,10 @@ public class UserRepository {
 				.filter(user -> user.getRole().equals(Role.MEMBER))
 				.collect(Collectors.toList());
 	}
+
+	public Optional<User> getUserByName(String lastName, String firstName) {
+		return userList.stream()
+				.filter(user -> user.getFirstName().equals(firstName) && user.getLastName().equals(lastName))
+				.findFirst();
+	}
 }
