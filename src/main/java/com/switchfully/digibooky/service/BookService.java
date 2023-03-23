@@ -52,5 +52,11 @@ public class BookService {
 		bookRepository.updateBook(bookToUpdate);
 		return bookDTO;
 	}
+
+    public BookDTO deleteBook(String id) {
+		Book bookToDelete = bookRepository.getById(id);
+		bookRepository.deleteBook(bookToDelete);
+		return bookMapper.mapToDTO(bookToDelete);
+    }
 }
 

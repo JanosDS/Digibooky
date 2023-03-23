@@ -10,10 +10,12 @@ import java.util.List;
 @Repository
 public class BookRepository {
 
-	private final List<Book> bookList;
+	private List<Book> bookList;
 
+	private List<Book> deletedBooks;
 	public BookRepository() {
 		this.bookList = new ArrayList<>();
+		this.deletedBooks = new ArrayList<>();
 	}
 
 	public Book getById(String Isbn) {
@@ -37,5 +39,10 @@ public class BookRepository {
 		bookList.remove(bookToUpdate);
 		bookList.add(bookToUpdate);
 	}
+
+    public void deleteBook(Book bookToDelete) {
+		bookList.remove(bookToDelete);
+		deletedBooks.add(bookToDelete);
+    }
 }
 

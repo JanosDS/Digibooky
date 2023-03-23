@@ -46,4 +46,10 @@ public class BookController {
         bookDTO.setAvailable(bookUpdateDTO.isAvailable());
         return bookService.updateBook(bookDTO);
     }
+
+    @DeleteMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDTO deleteBook(@PathVariable String id) {
+        return bookService.deleteBook(id);
+    }
 }
