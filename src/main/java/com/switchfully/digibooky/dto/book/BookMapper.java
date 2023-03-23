@@ -22,10 +22,16 @@ public class BookMapper {
 				.collect(Collectors.toList());
 	}
 
-	private BookDTO mapToDTO(Book book){
+	public BookDTO mapToDTO(Book book){
 		return new BookDTO(
 				book.getISBN(),
 				book.getTitle(),
-				authorMapper.mapToDTO(book.getAuthorList()));
+				authorMapper.mapToDTO(book.getAuthorList()),
+				book.getSummary(),
+				book.isAvailable());
+	}
+
+	public Book mapToDomain(BookDTO bookDTO) {
+		return new Book(bookDTO.getIsbn(), bookDTO.getTitle(), bookDTO.getSummary(), bookDTO.isAvailable(), authorMapper.mapToDomain(bookDTO.getAuthorList()));
 	}
 }
