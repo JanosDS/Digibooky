@@ -1,9 +1,12 @@
 package com.switchfully.digibooky.dto.user;
 
+import com.switchfully.digibooky.domain.Rental;
 import com.switchfully.digibooky.domain.user.Address;
 import com.switchfully.digibooky.domain.user.Role;
+import com.switchfully.digibooky.dto.rental.RentalDTO;
 import com.switchfully.digibooky.dto.user.address.AddressDTO;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 

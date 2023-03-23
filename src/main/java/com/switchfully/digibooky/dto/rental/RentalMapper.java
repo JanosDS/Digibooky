@@ -18,7 +18,7 @@ public class RentalMapper {
         return new Rental(rentalDTO.getISBN(), rentalDTO.getUserId(), rentalDTO.getRentalId(), rentalDTO.getDueDate());
     }
 
-   private List<RentalDTO> mapToDTO(List<Rental> rentalList){
+   public List<RentalDTO> mapToDTO(List<Rental> rentalList){
         return rentalList.stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
