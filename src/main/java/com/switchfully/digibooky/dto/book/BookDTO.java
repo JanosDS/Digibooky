@@ -1,5 +1,4 @@
 package com.switchfully.digibooky.dto.book;
-import com.switchfully.digibooky.domain.Author;
 import com.switchfully.digibooky.dto.author.AuthorDTO;
 
 import java.util.List;

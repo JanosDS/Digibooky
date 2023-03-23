@@ -4,7 +4,6 @@ import com.switchfully.digibooky.domain.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -22,8 +21,9 @@ public class BookRepository {
 				.findFirst()
 				.orElse(null);
 	}
-	public void putBookInList(Book bookToStore1) {
+	public Book addBook(Book bookToStore1) {
 		bookList.add(bookToStore1);
+		return bookToStore1;
 	}
 	public List getAllBooks() {
 		return bookList;

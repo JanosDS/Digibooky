@@ -15,8 +15,8 @@ public class BookRepositoryTest {
         List<Author> authorList = List.of(new Author("Jimmy", "Sirius"));
         Book bookToStore1 = new Book("randomISBN12345", "LOL", "summary1", true, authorList);
         Book bookToStore2 = new Book("randomISBN12346", "LOL2","summary2", true, authorList);
-        bookRepository.putBookInList(bookToStore1);
-        bookRepository.putBookInList(bookToStore2);
+        bookRepository.addBook(bookToStore1);
+        bookRepository.addBook(bookToStore2);
         List<Book> actual = bookRepository.getAllBooks();
         Assertions.assertThat(actual).containsExactly(bookToStore1, bookToStore2);
     }
