@@ -4,7 +4,6 @@ import com.switchfully.digibooky.domain.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -16,27 +15,12 @@ public class BookRepository {
 		this.bookList = new ArrayList<>();
 	}
 
-	public Book getById(String Isbn) {
-		return bookList.stream()
-				.filter(book -> book.getIsbn().equals(Isbn))
-				.findFirst()
-				.orElse(null);
-	}
-	public void putBookInList(Book bookToStore1) {
-		bookList.add(bookToStore1);
-	}
-	public List getAllBooks() {
+	public List<Book> getAllBooks() {
 		return bookList;
 	}
 
-
-	public List<Book> getBookList() {
-		return bookList;
+	//for testing purposes
+	public void putBookInList(Book book){
+		bookList.add(book);
 	}
-    public void updateBook(Book bookToUpdate) {
-		bookList.remove(bookToUpdate);
-		bookList.add(bookToUpdate);
-    }
 }
-
-
