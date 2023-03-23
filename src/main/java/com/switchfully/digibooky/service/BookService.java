@@ -4,6 +4,8 @@ import com.switchfully.digibooky.domain.Rental;
 import com.switchfully.digibooky.dto.author.AuthorDTO;
 import com.switchfully.digibooky.dto.author.AuthorMapper;
 import com.switchfully.digibooky.dto.book.*;
+import com.switchfully.digibooky.exception.InvalidINSSException;
+import com.switchfully.digibooky.exception.InvalidIsbnException;
 import com.switchfully.digibooky.exception.MandatoryFieldException;
 import com.switchfully.digibooky.repository.BookRepository;
 import com.switchfully.digibooky.repository.RentalRepository;
@@ -54,12 +56,15 @@ public class BookService {
 
 	public BookDTO createBook(CreateBookDTO newBook){
 		validateMandatoryFields(newBook);
-		
+		if (isUniqueIsbn(newBook.getIsbn())){
+			throw new InvalidIsbnException("Isbn is not unique");
+		}
 		return bookMapper.mapToDTO(bookRepository.addBook(bookMapper.mapToDomain(newBook)));
 	}
 
 	public BookDTO updateBook(BookUpdateDTO bookUpdateDTO,String isbn) {
 		Book bookToUpdate = bookRepository.getById(isbn);
+
 		bookToUpdate.setAvailable(bookUpdateDTO.isAvailable());
 		bookToUpdate.setTitle(bookUpdateDTO.getTitle());
 		bookToUpdate.setAuthorList(authorMapper.mapToDomain(bookUpdateDTO.getAuthorList()));

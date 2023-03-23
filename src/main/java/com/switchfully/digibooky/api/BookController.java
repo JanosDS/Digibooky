@@ -53,7 +53,8 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = "application/json", path = "/{isbn}")
-    public BookDTO updateBook(@RequestBody BookUpdateDTO bookUpdateDTO, @PathVariable String isbn) {
+    public BookDTO updateBook(@RequestBody BookUpdateDTO bookUpdateDTO, @PathVariable String isbn, @RequestHeader String authorization) {
+        securityService.validateAuthorization(authorization, Feature.CREATE_BOOK);
         return bookService.updateBook(bookUpdateDTO,isbn);
     }
 

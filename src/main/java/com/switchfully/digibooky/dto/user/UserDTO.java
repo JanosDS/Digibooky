@@ -53,7 +53,7 @@ public class UserDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(userId, userDTO.userId) && Objects.equals(firstName, userDTO.firstName) && Objects.equals(lastName, userDTO.lastName) && Objects.equals(email, userDTO.email) && Objects.equals(addressDTO, userDTO.addressDTO) && role == userDTO.role;
+        return Objects.equals(userId, userDTO.userId);
     }
 
     @Override
