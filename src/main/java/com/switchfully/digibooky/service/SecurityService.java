@@ -3,7 +3,7 @@ package com.switchfully.digibooky.service;
 
 import com.switchfully.digibooky.domain.user.Feature;
 import com.switchfully.digibooky.domain.user.User;
-import com.switchfully.digibooky.dto.user.UuidPassword;
+import com.switchfully.digibooky.domain.user.UuidPassword;
 import com.switchfully.digibooky.exception.UnauthorizedException;
 import com.switchfully.digibooky.exception.UserNotFoundException;
 import com.switchfully.digibooky.repository.UserRepository;

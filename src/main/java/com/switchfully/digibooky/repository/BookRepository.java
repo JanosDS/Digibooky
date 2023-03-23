@@ -15,7 +15,7 @@ public class BookRepository {
 		this.bookList = new ArrayList<>();
 	}
 
-	public Book getById(String isbn) {
+	public Book getBookByIsbn(String isbn) {
 		return bookList.stream()
 				.filter(book -> book.getIsbn().equals(isbn))
 				.findFirst()
