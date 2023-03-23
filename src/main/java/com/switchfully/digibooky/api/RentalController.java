@@ -20,13 +20,13 @@ public class RentalController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = "application/json", produces = "application/json", path = "/rent")
     public void rentBook(@RequestBody String title, @RequestBody User user){
         rentalService.rentBook(title, user);
     }
 
   @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping(consumes = "application/json", produces = "application/json")
+    @DeleteMapping(consumes = "application/json", produces = "application/json", path = "/return")
     public void returnBook(@RequestBody Rental rental){
         rentalService.returnBook(rental);
 
