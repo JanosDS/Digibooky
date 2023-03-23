@@ -34,7 +34,7 @@ public class BookService {
     }
 
     public BookDTO getBookByIsbn(String isbn) {
-        return bookMapper.mapToDTO(bookRepository.getBookByIsbn(isbn));
+        return bookMapper.mapToDTO(bookRepository.getById(isbn));
     }
 
     public List<BookDTO> getBooksByIsbn(String isbn) {
@@ -54,7 +54,7 @@ public class BookService {
     }
 
     public BookDTO updateBook(BookUpdateDTO bookUpdateDTO, String isbn) {
-        Book bookToUpdate = bookRepository.getBookByIsbn(isbn);
+        Book bookToUpdate = bookRepository.getById(isbn);
         bookToUpdate.setAvailable(bookUpdateDTO.isAvailable());
         bookToUpdate.setTitle(bookUpdateDTO.getTitle());
         bookToUpdate.setAuthorList(authorMapper.mapToDomain(bookUpdateDTO.getAuthorList()));
@@ -89,9 +89,9 @@ public class BookService {
     private BookDetailDTO getBookDetailById(String isbn) {
         Rental rental = rentalRepository.getByIsbn(isbn);
         if (rental == null) {
-            return bookDetailMapper.mapToDTO(bookRepository.getBookByIsbn(isbn));
+            return bookDetailMapper.mapToDTO(bookRepository.getById(isbn));
         }
-        BookDetailDTO bookDetailDTO = bookDetailMapper.mapToDTO(bookRepository.getBookByIsbn(isbn));
+        BookDetailDTO bookDetailDTO = bookDetailMapper.mapToDTO(bookRepository.getById(isbn));
         bookDetailDTO.setUserId(rental.getUserId());
         return bookDetailDTO;
     }
