@@ -83,6 +83,10 @@ public class User {
         return role.hasFeature(feature);
 	}
 
+    public String getPassword() {
+        return password;
+    }
+
     public boolean doesPasswordMatch(String password) {
         return this.password.equals(password);
     }
