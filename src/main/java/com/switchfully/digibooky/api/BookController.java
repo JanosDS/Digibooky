@@ -9,7 +9,7 @@ import com.switchfully.digibooky.dto.book.BookUpdateDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("books")
 public class BookController {
 
     private BookService bookService;
@@ -25,7 +25,7 @@ public class BookController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(path = "/{id}", produces = "application/json")
+    @GetMapping(path = "{id}", produces = "application/json")
     public List<BookDTO> getBookById(@PathVariable String id) {
         return bookService.getBooksByIsbn(id);
     }
