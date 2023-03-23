@@ -6,13 +6,12 @@ import com.switchfully.digibooky.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
 
 @RestController()
 @RequestMapping("/rental")
 public class RentalController {
 
-    private RentalService rentalService;
+    private final RentalService rentalService;
 
     @Autowired
     public RentalController(RentalService rentalService){

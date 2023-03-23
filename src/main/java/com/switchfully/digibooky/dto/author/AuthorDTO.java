@@ -4,14 +4,10 @@ public class AuthorDTO {
     private String firstName;
     private String lastName;
 
-    public AuthorDTO setFirstName(String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
 
-    public AuthorDTO setLastName(String lastName) {
+    public AuthorDTO(String firstName, String lastName) {
+        this.firstName = firstName;
         this.lastName = lastName;
-        return this;
     }
 
     public String getFirstName() {

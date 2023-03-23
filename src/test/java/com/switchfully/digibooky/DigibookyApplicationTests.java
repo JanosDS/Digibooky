@@ -14,10 +14,6 @@ public class DigibookyApplicationTests {
 
     @Value("8080")
     private int port;
-
-    @Test
-    void givenBookList_whenGetAllBooks_thenReturnListInJSON() throws JSONException {
-
-    }
+    
 
 }

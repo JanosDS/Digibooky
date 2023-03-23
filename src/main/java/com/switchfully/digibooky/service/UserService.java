@@ -10,6 +10,7 @@ import com.switchfully.digibooky.exception.MandatoryFieldException;
 import com.switchfully.digibooky.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
@@ -92,6 +93,7 @@ public class UserService {
 	}
 
 
-
-
+	public List<UserDTO> getAllMembers() {
+		return userMapper.mapToDTO(userRepository.getAllMembers());
+	}
 }

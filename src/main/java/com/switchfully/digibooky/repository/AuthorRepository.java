@@ -8,9 +8,14 @@ import java.util.List;
 
 @Repository
 public class AuthorRepository {
-    private final List<Author> authorList;
+    private List<Author> authorList;
 
     public AuthorRepository() {
         this.authorList = new ArrayList<>();
+    }
+
+    public Author addAuthor(Author author){
+        authorList.add(author);
+        return author;
     }
 }

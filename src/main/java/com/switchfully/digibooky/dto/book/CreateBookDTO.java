@@ -4,7 +4,7 @@ import com.switchfully.digibooky.dto.author.AuthorDTO;
 
 import java.util.List;
 
-public class BookUpdateDTO {
+public class CreateBookDTO {
 
     private final String isbn;
     private final String title;
@@ -12,13 +12,16 @@ public class BookUpdateDTO {
     private final String summary;
     private final boolean isAvailable;
 
-
-public BookUpdateDTO(String isbn, String title, List<AuthorDTO> authorList, String summary, boolean isAvailable) {
+    public CreateBookDTO(String isbn, String title, List<AuthorDTO> authorList, String summary, boolean isAvailable) {
+        this.isbn = isbn;
         this.title = title;
         this.authorList = authorList;
         this.summary = summary;
         this.isAvailable = isAvailable;
-        this.isbn = isbn;
+    }
+
+    public String getIsbn() {
+        return isbn;
     }
 
     public String getTitle() {
@@ -35,9 +38,5 @@ public BookUpdateDTO(String isbn, String title, List<AuthorDTO> authorList, Stri
 
     public boolean isAvailable() {
         return isAvailable;
-    }
-
-    public String getIsbn() {
-        return isbn;
     }
 }

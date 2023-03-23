@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class BookMapper {
 
-	private AuthorMapper authorMapper;
+	private final AuthorMapper authorMapper;
 
 	public BookMapper(AuthorMapper authorMapper) {
 		this.authorMapper = authorMapper;
@@ -24,14 +24,12 @@ public class BookMapper {
 
 	public BookDTO mapToDTO(Book book){
 		return new BookDTO(
-				book.getISBN(),
+				book.getIsbn(),
 				book.getTitle(),
-				authorMapper.mapToDTO(book.getAuthorList()),
-				book.getSummary(),
-				book.isAvailable());
+				authorMapper.mapToDTO(book.getAuthorList()));
 	}
 
-	public Book mapToDomain(BookDTO bookDTO) {
-		return new Book(bookDTO.getIsbn(), bookDTO.getTitle(), bookDTO.getSummary(), bookDTO.isAvailable(), authorMapper.mapToDomain(bookDTO.getAuthorList()));
+	public Book mapToDomain(CreateBookDTO createBookDTO){
+		return new Book(createBookDTO.getIsbn(), createBookDTO.getTitle(), createBookDTO.getSummary(), createBookDTO.isAvailable(), authorMapper.mapToDomain(createBookDTO.getAuthorList()));
 	}
 }

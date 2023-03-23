@@ -1,10 +1,15 @@
 package com.switchfully.digibooky.api;
 
+import com.switchfully.digibooky.domain.user.Feature;
 import com.switchfully.digibooky.dto.book.BookDTO;
+import com.switchfully.digibooky.dto.book.BookDetailDTO;
+import com.switchfully.digibooky.dto.book.BookUpdateDTO;
+import com.switchfully.digibooky.dto.book.CreateBookDTO;
 import com.switchfully.digibooky.service.BookService;
+import com.switchfully.digibooky.service.SecurityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import com.switchfully.digibooky.dto.book.BookUpdateDTO;
+
 
 import java.util.List;
 
@@ -12,10 +17,12 @@ import java.util.List;
 @RequestMapping("books")
 public class BookController {
 
-    private BookService bookService;
+    private final BookService bookService;
+    private final SecurityService securityService;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, SecurityService securityService) {
         this.bookService = bookService;
+        this.securityService = securityService;
     }
 
     @GetMapping(produces = "application/json")
@@ -25,20 +32,29 @@ public class BookController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(path = "{id}", produces = "application/json")
-    public List<BookDTO> getBookById(@PathVariable String id) {
-        return bookService.getBooksByIsbn(id);
+    @GetMapping(path = "/{isbn}", produces = "application/json")
+    public List<BookDTO> getBookByIsbn(@PathVariable String isbn) {
+        return bookService.getBooksByIsbn(isbn);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "{isbn}/details", produces = "application/json")
+    public BookDetailDTO getBookDetailsByIsbn(@PathVariable String isbn) {
+        return bookService.getBookDetailByIsbn(isbn);
+    }
+
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public BookDTO createBook(@RequestBody BookDTO bookDTO) {
-        return bookService.createBook(bookDTO);
+    public BookDTO createBook(@RequestBody CreateBookDTO createBookDTO, @RequestHeader String authorization) {
+        securityService.validateAuthorization(authorization, Feature.CREATE_BOOK);
+        return bookService.createBook(createBookDTO);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping(consumes = "application/json", produces = "application/json", path = "/{id}")
-    public BookDTO updateBook(@RequestBody BookUpdateDTO bookUpdateDTO, @PathVariable String id) {;
-        return bookService.updateBook(bookUpdateDTO);
+    @PostMapping(consumes = "application/json", produces = "application/json", path = "/{isbn}")
+    public BookDTO updateBook(@RequestBody BookUpdateDTO bookUpdateDTO, @PathVariable String isbn) {
+        return bookService.updateBook(bookUpdateDTO,isbn);
     }
+
 }
