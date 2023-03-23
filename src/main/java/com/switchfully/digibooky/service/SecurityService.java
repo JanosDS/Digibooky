@@ -25,8 +25,12 @@ public class SecurityService {
 		if(auth == null){
 			throw new UnauthorizedException("Not authorized.");
 		}
-		UuidPassword uuidPassword = getUsernamePassword(auth);
-
+		UuidPassword uuidPassword;
+		try {
+			uuidPassword = getUuidPassword(auth);
+		} catch(IllegalArgumentException exception){
+			throw new UnauthorizedException("No valid UUID was provided.");
+		}
 		User user = userRepository.getUserByUuid(uuidPassword.getUuid())
 				.orElseThrow(() -> new UserNotFoundException("No user found with UUID: " + uuidPassword.getUuid()));
 
@@ -39,7 +43,7 @@ public class SecurityService {
 
 	}
 
-	private UuidPassword getUsernamePassword(String auth) {
+	private UuidPassword getUuidPassword(String auth) {
 		String decodedUsernamePassword = new String(Base64.getDecoder().decode(auth.substring("basic ".length())));
 		UUID uuid = UUID.fromString(decodedUsernamePassword.substring(0, decodedUsernamePassword.indexOf(":")));
 		String password = decodedUsernamePassword.substring(decodedUsernamePassword.indexOf(":") + 1);
