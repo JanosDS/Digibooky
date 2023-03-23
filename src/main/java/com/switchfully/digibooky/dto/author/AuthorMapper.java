@@ -10,9 +10,14 @@ import java.util.stream.Collectors;
 public class AuthorMapper {
 
 
-    public Author mapToDomain() {
-        /** implement this **/
-        return new Author("firstName", "lastName");
+    public Author mapToDomain(AuthorDTO authorDTO) {
+        return new Author(authorDTO.getFirstName(), authorDTO.getLastName());
+    }
+
+    public List<Author> mapToDomain(List<AuthorDTO> authorDTOList){
+        return authorDTOList.stream()
+                .map(this::mapToDomain)
+                .collect(Collectors.toList());
     }
     
     public AuthorDTO mapToDto(Author author) {

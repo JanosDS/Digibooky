@@ -13,4 +13,11 @@ public class AuthorDTO {
         this.lastName = lastName;
         return this;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
 }
