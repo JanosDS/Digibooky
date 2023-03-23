@@ -9,9 +9,6 @@ public enum Role {
 	MEMBER(
 			new ArrayList<>()
 	),
-	LIBRARIAN(
-			new ArrayList<>()
-	),
 	ADMIN(
 			new ArrayList<>(){{
 				add(Feature.VIEW_ALL_MEMBERS);
