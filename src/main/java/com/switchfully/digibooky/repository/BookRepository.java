@@ -37,5 +37,12 @@ public class BookRepository {
 		bookList.remove(bookToUpdate);
 		bookList.add(bookToUpdate);
 	}
+
+	public Book getBookByTitle(String title) {
+		return bookList.stream()
+				.filter(book -> book.getTitle().equals(title))
+				.findFirst()
+				.orElse(null);
+	}
 }
 

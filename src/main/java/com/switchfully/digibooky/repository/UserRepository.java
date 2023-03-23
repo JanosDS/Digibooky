@@ -31,4 +31,12 @@ public class UserRepository {
 				.filter(user -> user.getInss().equals(INSS))
 				.findFirst();
 	}
+
+	public User getUserByName(String firstName, String lastName) {
+		return userList.stream()
+				.filter(user -> user.getUserId().equals(lastName))
+				.filter(user -> user.getUserId().equals(firstName))
+				.findFirst()
+				.orElse(null);
+	}
 }

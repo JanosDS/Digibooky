@@ -9,6 +9,13 @@ public class RentalDTO {
     private UUID rentalId;
     private LocalDate dueDate;
 
+    public RentalDTO(String ISBN, UUID userId, UUID rentalId, LocalDate dueDate) {
+        this.ISBN = ISBN;
+        this.userId = userId;
+        this.rentalId = rentalId;
+        this.dueDate = dueDate;
+    }
+
     public String getISBN() {
         return ISBN;
     }
