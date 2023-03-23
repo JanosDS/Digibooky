@@ -169,6 +169,22 @@ class UserServiceTest {
 		Assertions.assertEquals(expectedUserDTO, resultUserDTO);
 	}
 
+	@Test
+	@DisplayName("Test creation of a new librarian user, and finding it in the repo")
+	void addNewLibrarianUser(){
+		CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "mail@mail.com", new CreateAddressDTO("street","25", "PC", "City", "Country"), "xxx");
+		UserDTO resultUserDTO = userService.createNewLibrarianUser(newUser);
+		UserDTO expectedUserDTO = userService.getUserByInss(newUser.getInss());
+		Assertions.assertEquals(expectedUserDTO, resultUserDTO);
+	}
 
+	@Test
+	@DisplayName("Test creation of a new admin user, and finding it in the repo")
+	void addNewAdminUser(){
+		CreateUserDTO newUser = new CreateUserDTO("Firstname", "De", "mail@mail.com", new CreateAddressDTO("street","25", "PC", "City", "Country"), "xxx");
+		UserDTO resultUserDTO = userService.createNewAdminUser(newUser);
+		UserDTO expectedUserDTO = userService.getUserByInss(newUser.getInss());
+		Assertions.assertEquals(expectedUserDTO, resultUserDTO);
+	}
 
 }
