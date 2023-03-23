@@ -5,6 +5,7 @@ import com.switchfully.digibooky.domain.Rental;
 import com.switchfully.digibooky.dto.author.AuthorDTO;
 import com.switchfully.digibooky.dto.author.AuthorMapper;
 import com.switchfully.digibooky.dto.book.*;
+import com.switchfully.digibooky.exception.InvalidIsbnException;
 import com.switchfully.digibooky.exception.MandatoryFieldException;
 import com.switchfully.digibooky.repository.BookRepository;
 import com.switchfully.digibooky.repository.RentalRepository;
@@ -45,16 +46,17 @@ public class BookService {
         }
         return List.of(getBookByIsbn(isbn));
     }
-
-
+	
     public BookDTO createBook(CreateBookDTO newBook) {
         validateMandatoryFields(newBook);
-        //TODO: validate uniqueness of new book
+        if (isUniqueIsbn(newBook.getIsbn())) {
+            throw new InvalidIsbnException("Isbn is not unique");
+        }
         return bookMapper.mapToDTO(bookRepository.addBook(bookMapper.mapToDomain(newBook)));
     }
-
     public BookDTO updateBook(BookUpdateDTO bookUpdateDTO, String isbn) {
         Book bookToUpdate = bookRepository.getById(isbn);
+
         bookToUpdate.setAvailable(bookUpdateDTO.isAvailable());
         bookToUpdate.setTitle(bookUpdateDTO.getTitle());
         bookToUpdate.setAuthorList(authorMapper.mapToDomain(bookUpdateDTO.getAuthorList()));
@@ -70,7 +72,8 @@ public class BookService {
         if (newBook.getTitle() == null) {
             throw new MandatoryFieldException("The title of the book can't be empty");
         }
-        for (AuthorDTO authorsOfBooks : newBook.getAuthorList()) {
+        for (AuthorDTO authorsOfBooks :
+                newBook.getAuthorList()) {
             if (authorsOfBooks.getLastName() == null) {
                 throw new MandatoryFieldException("The last name of the author can't be empty");
             }
@@ -94,6 +97,12 @@ public class BookService {
         BookDetailDTO bookDetailDTO = bookDetailMapper.mapToDTO(bookRepository.getById(isbn));
         bookDetailDTO.setUserId(rental.getUserId());
         return bookDetailDTO;
+    }
+
+    public boolean isUniqueIsbn(String isbn) {
+        return bookRepository.getAllBooks()
+                .stream()
+                .noneMatch(book -> book.getIsbn().equals(isbn));
     }
 }
 

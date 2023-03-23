@@ -22,8 +22,8 @@ public class BookServiceTest {
     private AuthorMapper authorMapper = new AuthorMapper();
     private AuthorDTO testAuthorDTO = authorMapper.mapToDto(new Author("Wouter","Sels"));
     private List<AuthorDTO> testAuthors = new ArrayList<>(List.of(testAuthorDTO));
-
     private BookService bookService;
+    private CreateBookDTO testCreateBookDTO = new CreateBookDTO("testIsbn","testTitle",testAuthors,"test summary",true);
 
     @BeforeEach
     void setup(){
@@ -31,7 +31,7 @@ public class BookServiceTest {
     }
     @Nested
     @DisplayName("validate book fields")
-    class BookValidation{
+    class BookFieldValidation{
         @Test
         @DisplayName("Validate that every mandatory field is filled in")
         void allMandatoryFieldsAreFilledIn_isValid(){
@@ -63,6 +63,15 @@ public class BookServiceTest {
                 bookService.validateMandatoryFields(newBook);
             });
         }
-
+    }
+    @Nested
+    @DisplayName("validate unique book")
+    class BookUniqueValidation{
+        @Test
+        @DisplayName("Validate ISBN when it is unique")
+        void uniqueIsbn_isValid(){
+            String isbn = "testIsbn";
+            assertTrue(bookService.isUniqueIsbn(isbn));
+        }
     }
 }
