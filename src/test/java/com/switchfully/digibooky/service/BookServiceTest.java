@@ -1,8 +1,10 @@
 package com.switchfully.digibooky.service;
 
 import com.switchfully.digibooky.domain.Author;
+import com.switchfully.digibooky.domain.Book;
 import com.switchfully.digibooky.dto.author.AuthorDTO;
 import com.switchfully.digibooky.dto.author.AuthorMapper;
+import com.switchfully.digibooky.dto.book.BookDTO;
 import com.switchfully.digibooky.dto.book.BookDetailMapper;
 import com.switchfully.digibooky.dto.book.BookMapper;
 import com.switchfully.digibooky.dto.book.CreateBookDTO;
@@ -72,6 +74,55 @@ public class BookServiceTest {
         void uniqueIsbn_isValid(){
             String isbn = "testIsbn";
             assertTrue(bookService.isUniqueIsbn(isbn));
+        }
+    }
+    @Nested
+    @DisplayName("getBooksByTitle")
+    class getBooksByTitle {
+        BookRepository bookRepository = new BookRepository();
+        BookMapper bookMapper = new BookMapper(authorMapper);
+        List<Book> bookList;
+        List<BookDTO> bookDTOList;
+        List<Author> authorList = List.of(new Author("Jimmy", "Sirius"));
+        Book titleTest1 = new Book("randomISBN12345", "Match", "summary1", true, authorList);
+        Book titleTest2 = new Book("randomISBN12345", "Match me", "summary1", true, authorList);
+
+        @BeforeEach
+        void setup_getBooksByTitle() {
+            bookRepository.addBook(titleTest1);
+            bookRepository.addBook(titleTest2);
+            this.bookList = bookRepository.getAllBooks();
+            this.bookDTOList = bookList.stream().map(bookMapper::mapToDTO).toList();
+        }
+
+//        @Test
+//        @DisplayName("Search book that contains a valid title")
+//        void givenAValidTitle_returnOneBookContainingThatTitle() {
+//            //given
+//
+//            //when
+//            List<BookDTO> actual = bookService.getBooksByTitle("me");
+//            //then
+//            org.assertj.core.api.Assertions.assertThat(actual).containsExactly(bookMapper.mapToDTO(titleTest2));
+//        }
+//
+//        @Test
+//        @DisplayName("Search multiple books that contains a valid title")
+//        void givenAValidTitle_returnBooksContainingThatTitle() {
+//            //when
+//            List<BookDTO> actual = bookService.getBooksByTitle("Match");
+//            //then
+//            org.assertj.core.api.Assertions.assertThat(actual).containsExactly(bookMapper.mapToDTO(titleTest1), bookMapper.mapToDTO(titleTest2));
+//        }
+
+
+        @Test
+        @DisplayName("Search books that doesn't contain title")
+        void givenAWrongTitle_returnNull() {
+            //when
+            List<BookDTO> actual = bookService.getBooksByTitle("Matchme");
+            //then
+            Assertions.assertTrue(actual.isEmpty());
         }
     }
 }

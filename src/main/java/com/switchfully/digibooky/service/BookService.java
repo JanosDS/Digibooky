@@ -104,5 +104,19 @@ public class BookService {
                 .stream()
                 .noneMatch(book -> book.getIsbn().equals(isbn));
     }
+
+    public List<BookDTO> getBooksByTitle(String title) {
+
+        /** Implement wildcard logic **/
+
+        if (title == null) {
+            throw new NullPointerException();
+        }
+        List<Book> bookList = bookRepository.getAllBooks();
+        return bookList.stream()
+                .filter(book -> (book.getTitle().toLowerCase()).contains(title.toLowerCase()))
+                .map(bookMapper::mapToDTO)
+                .collect(Collectors.toList());
+    }
 }
 
