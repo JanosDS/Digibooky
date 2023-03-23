@@ -15,11 +15,6 @@ public class BookRepository {
 
 	public BookRepository() {
 		this.bookList = new ArrayList<>();
-		List<Author> authorList = List.of(new Author("Jimmy", "Sirius"));
-		Book titleTest1 = new Book("randomISBN12345", "Match", "summary1", true, authorList);
-		Book titleTest2 = new Book("randomISBN12345", "Match me", "summary1", true, authorList);
-		addBook(titleTest2);
-		addBook(titleTest1);
 	}
 
 	public Book getById(String isbn) {
