@@ -39,11 +39,9 @@ public class RentalRepository {
     }
     public List<Rental> getOverdueBooks() {
         List<Rental> overdueRentals = new ArrayList<>();
-        for (Rental rental : rentals) {
-            if (rental.getDueDate().isBefore(LocalDate.now())) {
-                overdueRentals.add(rental);
-            }
-        }
+        rentals.stream()
+                .filter(rental -> rental.getDueDate().isBefore(LocalDate.now()))
+                .forEach(overdueRentals::add);
         return overdueRentals;
     }
 

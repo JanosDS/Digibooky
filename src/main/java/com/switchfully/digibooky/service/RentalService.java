@@ -10,6 +10,7 @@ import com.switchfully.digibooky.exception.UserNotFoundException;
 import com.switchfully.digibooky.repository.BookRepository;
 import com.switchfully.digibooky.repository.RentalRepository;
 import com.switchfully.digibooky.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,18 +18,15 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 public class RentalService {
     //implement services
     private final RentalRepository rentalRepository;
     private final BookRepository bookRepository;
-
     private final UserRepository userRepository;
-
     private final BookMapper bookMapper;
 
+    @Autowired
     public RentalService(RentalRepository rentalRepository, BookRepository bookRepository, UserRepository userRepository, BookMapper bookMapper) {
         this.rentalRepository = rentalRepository;
         this.bookRepository = bookRepository;
@@ -44,7 +42,6 @@ public class RentalService {
                     .orElseThrow(() -> new UserNotFoundException("User not found")));
             rentalRepository.addRental(rental);
             book.setAvailable(false);
-            ;
         }
     }
 
@@ -68,10 +65,9 @@ public class RentalService {
 
     public List<BookDTO> getOverdueBooks() {
         return rentalRepository.getOverdueBooks().stream()
-                .map(Rental::getIsbn)
-                .toList().stream()
-                .map(bookRepository::getById)
-                .map(bookMapper::mapToDTO)
+                .map(rental -> bookRepository.getById(rental.getIsbn()))
+                .map(book -> bookMapper.mapToDTO(book))
                 .collect(Collectors.toList());
     }
+
 }
