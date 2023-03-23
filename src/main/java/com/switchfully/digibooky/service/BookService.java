@@ -2,6 +2,7 @@ package com.switchfully.digibooky.service;
 
 import com.switchfully.digibooky.dto.book.BookDTO;
 import com.switchfully.digibooky.dto.book.BookMapper;
+import com.switchfully.digibooky.dto.book.BookUpdateDTO;
 import com.switchfully.digibooky.repository.BookRepository;
 import org.springframework.stereotype.Service;
 import com.switchfully.digibooky.domain.Book;
@@ -47,10 +48,14 @@ public class BookService {
 		return bookDTO;
 	}
 
-	public BookDTO updateBook(BookDTO bookDTO) {
-		Book bookToUpdate = bookMapper.mapToDomain(bookDTO);
-		bookRepository.updateBook(bookToUpdate);
+	public BookDTO updateBook(BookUpdateDTO bookUpdateDTO) {
+		BookDTO bookDTO = bookMapper.mapToDTO(bookRepository.getById(bookUpdateDTO.getISBN()));
+		bookDTO.setTitle(bookUpdateDTO.getTitle());
+		bookDTO.setSummary(bookUpdateDTO.getSummary());
+		bookDTO.setAvailable(bookUpdateDTO.isAvailable());
+		bookDTO.setAuthorList(bookUpdateDTO.getAuthorList());
 		return bookDTO;
 	}
 }
+
 

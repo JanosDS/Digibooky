@@ -38,12 +38,7 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = "application/json", path = "/{id}")
-    public BookDTO updateBook(@RequestBody BookUpdateDTO bookUpdateDTO, @PathVariable String id) {
-        BookDTO bookDTO = bookService.getBookById(id);
-        bookDTO.setTitle(bookUpdateDTO.getTitle());
-        bookDTO.setSummary(bookUpdateDTO.getSummary());
-        bookDTO.setAuthorList(bookUpdateDTO.getAuthorList());
-        bookDTO.setAvailable(bookUpdateDTO.isAvailable());
-        return bookService.updateBook(bookDTO);
+    public BookDTO updateBook(@RequestBody BookUpdateDTO bookUpdateDTO, @PathVariable String id) {;
+        return bookService.updateBook(bookUpdateDTO);
     }
 }
