@@ -1,8 +1,10 @@
 package com.switchfully.digibooky.service;
 
+import com.switchfully.digibooky.dto.author.AuthorDTO;
 import com.switchfully.digibooky.dto.book.BookDTO;
 import com.switchfully.digibooky.dto.book.BookMapper;
 import com.switchfully.digibooky.dto.book.CreateBookDTO;
+import com.switchfully.digibooky.exception.MandatoryFieldException;
 import com.switchfully.digibooky.repository.BookRepository;
 import org.springframework.stereotype.Service;
 import com.switchfully.digibooky.domain.Book;
@@ -49,8 +51,7 @@ public class BookService {
 	}
 
 	public BookDTO createBook(CreateBookDTO newBook){
-		//validateRole()
-		//validateRequiredFields(newBook)
+		validateMandatoryFields(newBook);
 		return bookMapper.mapToDTO(bookRepository.addBook(bookMapper.mapToDomain(newBook)));
 	}
 
@@ -58,6 +59,21 @@ public class BookService {
 		Book bookToUpdate = bookMapper.mapToDomain(bookDTO);
 		bookRepository.updateBook(bookToUpdate);
 		return bookDTO;
+	}
+
+	public void validateMandatoryFields(CreateBookDTO newBook){
+		if(newBook.getIsbn() == null){
+			throw new MandatoryFieldException("The ISBN of the book can't be empty");
+		}
+		if (newBook.getTitle() == null) {
+			throw new MandatoryFieldException("The title of the book can't be empty");
+		}
+		for (AuthorDTO authorsOfBooks :
+				newBook.getAuthorList()) {
+			if (authorsOfBooks.getLastName() == null) {
+				throw new MandatoryFieldException("The last name of the author can't be empty");
+			}
+		}
 	}
 }
 

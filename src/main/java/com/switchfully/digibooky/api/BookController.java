@@ -1,6 +1,7 @@
 package com.switchfully.digibooky.api;
 
 import com.switchfully.digibooky.dto.book.BookDTO;
+import com.switchfully.digibooky.dto.book.CreateBookDTO;
 import com.switchfully.digibooky.service.BookService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public BookDTO createBook(@RequestBody BookDTO bookDTO) {
-        return bookService.createBook(bookDTO);
+    public BookDTO createBook(@RequestBody CreateBookDTO createBookDTO) {
+        return bookService.createBook(createBookDTO);
     }
 
     @ResponseStatus(HttpStatus.OK)
