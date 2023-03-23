@@ -19,11 +19,9 @@ public class AuthorMapper {
                 .map(this::mapToDomain)
                 .collect(Collectors.toList());
     }
-    
+
     public AuthorDTO mapToDto(Author author) {
-        return new AuthorDTO()
-                .setFirstName(author.getFirstName())
-                .setLastName(author.getLastName());
+        return new AuthorDTO(author.getFirstName(), author.getLastName());
     }
 
     public List<AuthorDTO> mapToDTO(List<Author> authorList){
