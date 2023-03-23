@@ -20,9 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BookServiceTest {
 
     private AuthorMapper authorMapper = new AuthorMapper();
-    private AuthorDTO testAuthor1 = authorMapper.mapToDto(new Author("Wouter","Sels"));
-    private List<AuthorDTO> testAuthors = new ArrayList<>(List.of(testAuthor1));
-    //CreateBookDTO newBook = new CreateBookDTO("testIsbn", "testTitle", testAuthors, "Test summary",true);
+    private AuthorDTO testAuthorDTO = authorMapper.mapToDto(new Author("Wouter","Sels"));
+    private List<AuthorDTO> testAuthors = new ArrayList<>(List.of(testAuthorDTO));
 
     private BookService bookService;
 
@@ -59,7 +58,7 @@ public class BookServiceTest {
         @Test
         @DisplayName("Validate when author lastname is not filled in")
         void authorLastNameFieldNotFilledIn_isInvalid(){
-            CreateBookDTO newBook = new CreateBookDTO("test isbn","I, Robot",List.of(new AuthorDTO().setFirstName("Test").setLastName(null)),"Test summary",true);
+            CreateBookDTO newBook = new CreateBookDTO("test isbn","I, Robot",List.of(new AuthorDTO("Test",null)),"Test summary",true);
             Exception exception = assertThrows(MandatoryFieldException.class, () -> {
                 bookService.validateMandatoryFields(newBook);
             });
