@@ -15,9 +15,9 @@ public class BookRepository {
 		this.bookList = new ArrayList<>();
 	}
 
-	public Book getById(String Isbn) {
+	public Book getById(String isbn) {
 		return bookList.stream()
-				.filter(book -> book.getISBN().equals(Isbn))
+				.filter(book -> book.getIsbn().equals(isbn))
 				.findFirst()
 				.orElse(null);
 	}
@@ -25,17 +25,20 @@ public class BookRepository {
 		bookList.add(bookToStore1);
 		return bookToStore1;
 	}
-	public List getAllBooks() {
+	public List<Book> getAllBooks() {
 		return bookList;
 	}
-
-
-	public List<Book> getBookList() {
-		return bookList;
-	}
-	public void updateBook(Book bookToUpdate) {
-		bookList.remove(bookToUpdate);
+	
+	public void updateBook(Book bookToUpdate,String id) {
+		bookList.remove(getById(id));
 		bookList.add(bookToUpdate);
+	}
+
+	public Book getBookByTitle(String title) {
+		return bookList.stream()
+				.filter(book -> book.getTitle().equals(title))
+				.findFirst()
+				.orElse(null);
 	}
 }
 

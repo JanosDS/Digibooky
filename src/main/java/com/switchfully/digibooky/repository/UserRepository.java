@@ -41,9 +41,17 @@ public class UserRepository {
 				.findFirst();
 	}
 
-	public List<User> getAllMembers(){
+	public List<User> getAllMembers() {
 		return userList.stream()
 				.filter(user -> user.getRole().equals(Role.MEMBER))
-				.collect(Collectors.toList());
+				.toList();
+	}
+
+	public User getUserByName(String firstName, String lastName) {
+		return userList.stream()
+				.filter(user -> user.getUserId().equals(lastName))
+				.filter(user -> user.getUserId().equals(firstName))
+				.findFirst()
+				.orElse(null);
 	}
 }

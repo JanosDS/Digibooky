@@ -1,6 +1,5 @@
 package com.switchfully.digibooky.domain;
 
-import com.switchfully.digibooky.dto.author.AuthorDTO;
 
 public class Author {
     /** field id ? **/
@@ -25,11 +24,6 @@ public class Author {
         return lastName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+
 }
 

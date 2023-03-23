@@ -2,17 +2,19 @@ package com.switchfully.digibooky.api;
 
 import com.switchfully.digibooky.domain.user.Feature;
 import com.switchfully.digibooky.dto.book.BookDTO;
+import com.switchfully.digibooky.dto.book.BookDetailDTO;
+import com.switchfully.digibooky.dto.book.BookUpdateDTO;
 import com.switchfully.digibooky.dto.book.CreateBookDTO;
 import com.switchfully.digibooky.service.BookService;
 import com.switchfully.digibooky.service.SecurityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import com.switchfully.digibooky.dto.book.BookUpdateDTO;
+
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("books")
 public class BookController {
 
     private final BookService bookService;
@@ -37,9 +39,10 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(path = "{isbn}/details", produces = "application/json")
-    public BookDetailDTO getBookDetailsByIsbn(@PathVariable String isbn){
+    public BookDetailDTO getBookDetailsByIsbn(@PathVariable String isbn) {
         return bookService.getBookDetailByIsbn(isbn);
     }
+
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = "application/json", produces = "application/json")
@@ -49,14 +52,9 @@ public class BookController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping(consumes = "application/json", produces = "application/json", path = "/{id}")
-    public BookDTO updateBook(@RequestBody BookUpdateDTO bookUpdateDTO, @PathVariable String id) {
-        BookDTO bookDTO = bookService.getBookById(id);
-        bookDTO.setTitle(bookUpdateDTO.getTitle());
-        bookDTO.setSummary(bookUpdateDTO.getSummary());
-        bookDTO.setAuthorList(bookUpdateDTO.getAuthorList());
-        bookDTO.setAvailable(bookUpdateDTO.isAvailable());
-        return bookService.updateBook(bookDTO);
+    @PostMapping(consumes = "application/json", produces = "application/json", path = "/{isbn}")
+    public BookDTO updateBook(@RequestBody BookUpdateDTO bookUpdateDTO, @PathVariable String isbn) {
+        return bookService.updateBook(bookUpdateDTO,isbn);
     }
 
 }

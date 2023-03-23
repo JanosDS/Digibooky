@@ -4,13 +4,13 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class User {
-    private UUID userId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private Address address;
-    private String inss;
-    private Role role;
+    private final UUID userId;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final Address address;
+    private final String inss;
+    private final Role role;
 
     private String password;
 

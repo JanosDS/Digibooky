@@ -10,7 +10,7 @@ public class CreateBookDTO {
     private final String title;
     private final List<AuthorDTO> authorList;
     private final String summary;
-    private boolean isAvailable;
+    private final boolean isAvailable;
 
     public CreateBookDTO(String isbn, String title, List<AuthorDTO> authorList, String summary, boolean isAvailable) {
         this.isbn = isbn;

@@ -3,11 +3,13 @@ package com.switchfully.digibooky.service;
 import com.switchfully.digibooky.domain.Author;
 import com.switchfully.digibooky.dto.author.AuthorDTO;
 import com.switchfully.digibooky.dto.author.AuthorMapper;
+import com.switchfully.digibooky.dto.book.BookDetailMapper;
 import com.switchfully.digibooky.dto.book.BookMapper;
 import com.switchfully.digibooky.dto.book.CreateBookDTO;
 import com.switchfully.digibooky.exception.MandatoryFieldException;
 
 import com.switchfully.digibooky.repository.BookRepository;
+import com.switchfully.digibooky.repository.RentalRepository;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class BookServiceTest {
 
     @BeforeEach
     void setup(){
-        this.bookService = new BookService(new BookMapper(authorMapper),new BookRepository());
+        this.bookService = new BookService(new BookMapper(authorMapper),new BookRepository(), new BookDetailMapper(new AuthorMapper()) , new RentalRepository(), new AuthorMapper());
     }
     @Nested
     @DisplayName("validate book fields")
