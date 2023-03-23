@@ -3,30 +3,32 @@ package com.switchfully.digibooky.dto.book;
 import com.switchfully.digibooky.dto.author.AuthorDTO;
 
 import java.util.List;
+import java.util.UUID;
 
-public class BookUpdateDTO {
-
+public class BookDetailDTO {
     private final String isbn;
     private final String title;
     private final List<AuthorDTO> authorList;
+
     private final String summary;
     private final boolean isAvailable;
 
+    private UUID userId;
 
-public BookUpdateDTO(String isbn, String title, List<AuthorDTO> authorList, String summary, boolean isAvailable) {
+    public BookDetailDTO(String isbn, String title, List<AuthorDTO> authorList, String summary, boolean isAvailable) {
+        this.isbn = isbn;
         this.title = title;
         this.authorList = authorList;
         this.summary = summary;
         this.isAvailable = isAvailable;
-        this.isbn = isbn;
+    }
+
+    public String getIsbn() {
+        return isbn;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public List<AuthorDTO> getAuthorList() {
-        return authorList;
     }
 
     public String getSummary() {
@@ -37,7 +39,16 @@ public BookUpdateDTO(String isbn, String title, List<AuthorDTO> authorList, Stri
         return isAvailable;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public List<AuthorDTO> getAuthorList() {
+        return authorList;
+
+    }
+    public UUID getUserId() {
+        return userId;
+    }
+
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 }

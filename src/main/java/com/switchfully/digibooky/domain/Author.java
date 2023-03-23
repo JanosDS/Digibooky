@@ -24,6 +24,5 @@ public class Author {
     public String getLastName() {
         return lastName;
     }
-
 }
 
