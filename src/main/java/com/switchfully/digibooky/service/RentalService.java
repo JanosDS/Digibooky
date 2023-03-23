@@ -54,4 +54,8 @@ public class RentalService {
             throw new IllegalArgumentException("Book is not rented by this user");
         }
     }
+
+    public void getOverdueBooks() {
+        rentalRepository.getOverdueBooks();
+    }
 }

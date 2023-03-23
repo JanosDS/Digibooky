@@ -29,7 +29,11 @@ public class RentalController {
     @DeleteMapping(consumes = "application/json", produces = "application/json", path = "/return")
     public void returnBook(@RequestBody Rental rental){
         rentalService.returnBook(rental);
-
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(consumes = "application/json", produces = "application/json", path = "/overdue")
+    public void getOverdueBooks(){
+        rentalService.getOverdueBooks();
+    }
 }
