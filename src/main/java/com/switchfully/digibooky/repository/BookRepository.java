@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BookRepository {
@@ -19,7 +20,7 @@ public class BookRepository {
 		return bookList.stream()
 				.filter(book -> book.getIsbn().equals(isbn))
 				.findFirst()
-				.orElse(null);
+				.orElseThrow();
 	}
 //	public Book addBook(Book bookToStore1) {
 //		bookList.add(bookToStore1);
