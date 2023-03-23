@@ -23,7 +23,7 @@ public class UserMapper {
     }
 
     public UserDTO mapToDTO(User user) {
-        return new UserDTO(user.getUserId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAddress(), user.getRole());
+        return new UserDTO(user.getUserId(), user.getFirstName(), user.getLastName(), user.getEmail(), addressMapper.mapToDTO(user.getAddress()), user.getRole());
     }
 
     public User mapToDomain(CreateUserDTO createUserDTO){
