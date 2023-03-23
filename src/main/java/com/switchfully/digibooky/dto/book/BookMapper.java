@@ -1,6 +1,7 @@
 package com.switchfully.digibooky.dto.book;
 
 import com.switchfully.digibooky.domain.Book;
+import com.switchfully.digibooky.domain.Rental;
 import com.switchfully.digibooky.dto.author.AuthorMapper;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,7 @@ public class BookMapper {
 				book.getSummary(),
 				book.isAvailable());
 	}
+
 
 	public Book mapToDomain(BookDTO bookDTO) {
 		return new Book(bookDTO.getIsbn(), bookDTO.getTitle(), bookDTO.getSummary(), bookDTO.isAvailable(), authorMapper.mapToDomain(bookDTO.getAuthorList()));

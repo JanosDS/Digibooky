@@ -30,9 +30,15 @@ public class BookController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(path = "/{id}", produces = "application/json")
-    public List<BookDTO> getBookById(@PathVariable String id) {
-        return bookService.getBooksByIsbn(id);
+    @GetMapping(path = "/{isbn}", produces = "application/json")
+    public List<BookDTO> getBookByIsbn(@PathVariable String isbn) {
+        return bookService.getBooksByIsbn(isbn);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "{isbn}/details", produces = "application/json")
+    public BookDetailDTO getBookDetailsByIsbn(@PathVariable String isbn){
+        return bookService.getBookDetailByIsbn(isbn);
     }
 
     @ResponseStatus(HttpStatus.OK)

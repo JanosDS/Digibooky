@@ -2,6 +2,7 @@ package com.switchfully.digibooky.service;
 
 import com.switchfully.digibooky.dto.author.AuthorDTO;
 import com.switchfully.digibooky.dto.book.BookDTO;
+import com.switchfully.digibooky.dto.book.BookDetailDTO;
 import com.switchfully.digibooky.dto.book.BookMapper;
 import com.switchfully.digibooky.dto.book.CreateBookDTO;
 import com.switchfully.digibooky.exception.MandatoryFieldException;
@@ -74,6 +75,17 @@ public class BookService {
 				throw new MandatoryFieldException("The last name of the author can't be empty");
 			}
 		}
+	}
+
+	public BookDetailDTO getBookDetailByIsbn(String isbn) {
+		boolean wildcard = isbn.contains("*");
+		if (!wildcard) {
+			return getBookDetailById(isbn);
+		}
+	}
+
+	private BookDetailDTO getBookDetailById(String isbn) {
+		return bookDetailMapper.mapToDTO(bookRepository.getById(isbn),rentalRepository.getByIsbn(isbn));
 	}
 }
 
