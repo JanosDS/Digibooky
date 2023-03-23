@@ -12,6 +12,18 @@ public class User {
     private String inss;
     private Role role;
 
+    private String password;
+
+    public User(String firstName, String lastName, String email, Address address, String inss, Role role, String password) {
+        this.userId = UUID.randomUUID();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.inss = inss;
+        this.role = role;
+        this.password = password;
+    }
     public User(String firstName, String lastName, String email, Address address, String inss, Role role) {
         this.userId = UUID.randomUUID();
         this.firstName = firstName;
@@ -21,7 +33,6 @@ public class User {
         this.inss = inss;
         this.role = role;
     }
-
     public UUID getUserId() {
         return userId;
     }
@@ -66,5 +77,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(userId, email, inss);
+    }
+
+	public boolean hasAccessTo(Feature feature) {
+        return role.hasFeature(feature);
+	}
+
+    public boolean doesPasswordMatch(String password) {
+        return this.password.equals(password);
     }
 }

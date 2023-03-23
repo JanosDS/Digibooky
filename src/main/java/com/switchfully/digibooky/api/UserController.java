@@ -1,18 +1,24 @@
 package com.switchfully.digibooky.api;
 
+import com.switchfully.digibooky.domain.user.Feature;
 import com.switchfully.digibooky.dto.user.CreateUserDTO;
 import com.switchfully.digibooky.dto.user.UserDTO;
+import com.switchfully.digibooky.service.SecurityService;
 import com.switchfully.digibooky.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
 	private final UserService userService;
+	private final SecurityService securityService;
 
-	public UserController(UserService userService) {
+	public UserController(UserService userService, SecurityService securityService) {
+		this.securityService = securityService;
 		this.userService = userService;
 	}
 
@@ -27,5 +33,10 @@ public class UserController {
 		return userService.getUserByInss(inss);
 	}
 
+	@GetMapping(path = "/members")
+	public List<UserDTO> getAllMembers(@RequestHeader String authorization){
+		securityService.validateAuthorization(authorization, Feature.VIEW_ALL_MEMBERS);
+		return userService.getAllMembers();
+	}
 
 }
