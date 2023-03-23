@@ -4,6 +4,9 @@ import com.switchfully.digibooky.domain.user.User;
 import com.switchfully.digibooky.dto.user.address.AddressMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class UserMapper {
 
@@ -11,6 +14,12 @@ public class UserMapper {
 
     public UserMapper(AddressMapper addressMapper) {
         this.addressMapper = addressMapper;
+    }
+
+    public List<UserDTO> mapToDTO(List<User> userList){
+       return userList.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     public UserDTO mapToDTO(User user) {
