@@ -29,9 +29,11 @@ public class BookRepository {
 		return bookList;
 	}
 	
-	public void updateBook(Book bookToUpdate,String id) {
-		bookList.remove(getById(id));
-		bookList.add(bookToUpdate);
+	public void updateBook(Book updatedBook,String isbn) {
+		Book bookToUpdate = bookList.stream().filter(book -> book.getIsbn().equals(isbn))
+				.findFirst()
+				.orElse(null);
+		bookList.set(bookList.indexOf(bookToUpdate),updatedBook);
 	}
 
 	public Book getBookByTitle(String title) {
