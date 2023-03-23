@@ -54,6 +54,7 @@ public class BookService {
 
 	public BookDTO createBook(CreateBookDTO newBook){
 		validateMandatoryFields(newBook);
+		//TODO: validate uniqueness of new book
 		return bookMapper.mapToDTO(bookRepository.addBook(bookMapper.mapToDomain(newBook)));
 	}
 
@@ -98,7 +99,7 @@ public class BookService {
 		}
 		BookDetailDTO bookDetailDTO = bookDetailMapper.mapToDTO(bookRepository.getById(isbn));
 		bookDetailDTO.setUserId(rental.getUserId());
-		return  bookDetailDTO;
+		return bookDetailDTO;
 	}
 }
 
