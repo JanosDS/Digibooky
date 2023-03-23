@@ -45,5 +45,4 @@ public class Rental {
         this.dueDate = dueDate;
     }
 
-
 }

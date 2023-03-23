@@ -11,9 +11,11 @@ import java.util.List;
 @Repository
 public class RentalRepository {
     private List<Rental> rentals;
+    private List<Rental> archivedRentals;
 
     public RentalRepository() {
         this.rentals = new ArrayList<>();
+        this.archivedRentals = new ArrayList<>();
     }
 
     public void addRental(Rental rental) {
@@ -32,6 +34,7 @@ public class RentalRepository {
     }
 
     public void removeRental(Rental rental) {
+        archivedRentals.add(rental);
         rentals.remove(rental);
     }
     public List<Rental> getOverdueBooks() {
