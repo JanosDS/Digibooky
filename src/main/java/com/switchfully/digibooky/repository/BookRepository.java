@@ -29,10 +29,7 @@ public class BookRepository {
 				.findFirst()
 				.orElseThrow();
 	}
-//	public Book addBook(Book bookToStore1) {
-//		bookList.add(bookToStore1);
-//		return bookToStore1;
-//	}
+
 	public List<Book> getAllBooks() {
 		return bookList;
 	}
@@ -68,7 +65,7 @@ public class BookRepository {
 
 	public List<Book> getBookByAuthor(String name) {
 		String[] nameToSplit = name.toLowerCase().split(" ");
-		HashSet<Book> result = new HashSet<>();
+		List<Book> result = new ArrayList<>();
 		for (Book book : bookList) {
 			for (Author authorOfBook : book.getAuthorList()) {
 				if (nameToSplit.length > 1)
@@ -83,19 +80,8 @@ public class BookRepository {
 				}
 			}
 		}
-		return result.stream().collect(Collectors.toList());
+		return result;
 	}
 
-	private String camelCaseName(String name)
-	{
-		String nameToCamelCase;
-		nameToCamelCase = name.substring(0,1).toUpperCase() + name.substring(1, name.length()).toLowerCase();
-		return nameToCamelCase;
-	}
-
-	public Author[] splitAuthorSearch(String[] nameToSplit) {
-		Author[] listOfAuthors = new Author[]{new Author(nameToSplit[0], nameToSplit[1]), new Author(nameToSplit[1], nameToSplit[0])};
-		return listOfAuthors;
-	}
 }
 
