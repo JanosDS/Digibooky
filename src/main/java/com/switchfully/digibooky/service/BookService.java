@@ -44,6 +44,7 @@ public class BookService {
 	}
 
 	public List<BookDTO> getBookListByIsbn(String isbn) {
+
 		if (isbn.contains("*")) {
 			String isbnWithoutWildcard = isbn.replace("*", "");
 			List<Book> bookListWithWildcard = bookRepository.getAllBooks().stream()

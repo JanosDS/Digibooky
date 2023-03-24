@@ -5,6 +5,7 @@ import com.switchfully.digibooky.domain.Rental;
 import com.switchfully.digibooky.domain.user.User;
 import com.switchfully.digibooky.dto.book.BookDTO;
 import com.switchfully.digibooky.dto.book.BookMapper;
+import com.switchfully.digibooky.dto.rental.CreateRentalDTO;
 import com.switchfully.digibooky.dto.rental.RentalDTO;
 import com.switchfully.digibooky.dto.rental.RentalMapper;
 import com.switchfully.digibooky.dto.user.UserDTO;
@@ -40,14 +41,17 @@ public class RentalService {
 		this.rentalMapper = rentalMapper;
 	}
 
-	public RentalDTO rentBook(String isbn, UserDTO userDTO) {
-		Book book = bookRepository.getBookByIsbn(isbn)
-				.orElseThrow(() -> new BookNotFoundException(isbn + "Is not a valid isbn, book not found"));
+	public RentalDTO rentBook(CreateRentalDTO createRentalDTO) {
+
+		UUID uuid = createRentalDTO.getUserId();
+
+		Book book = bookRepository.getBookByIsbn(createRentalDTO.getIsbn())
+				.orElseThrow(() -> new BookNotFoundException(createRentalDTO.getIsbn() + "Is not a valid isbn, book not found"));
 		Rental rental;
 		if (book.isAvailable()) {
-			rental = new Rental(bookRepository.getBookByIsbn(isbn)
-					        .orElseThrow(() -> new BookNotFoundException(isbn + "Is not a valid isbn, book not found")),
-					userRepository.getUserByUuid(userDTO.getUserId())
+			rental = new Rental(bookRepository.getBookByIsbn(createRentalDTO.getIsbn())
+					        .orElseThrow(() -> new BookNotFoundException(createRentalDTO.getIsbn() + "Is not a valid isbn, book not found")),
+					userRepository.getUserByUuid(uuid)
 							.orElseThrow(() -> new UserNotFoundException("User not found")));
 			rentalRepository.addRental(rental);
 			book.setAvailable(false);

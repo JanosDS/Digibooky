@@ -22,6 +22,7 @@ public class UserRepository {
 		userList.add(new User("Janos", "Descheemaeker", "janosdescheemaeker@hotmail.com", new Address("Leiestraat", "29", "9000", "Gent", "Belgium"), "MyINSS", Role.MEMBER, null));
 		//Add user for testing purposes
 		userList.add(new User("Admin", "admin", "admin@admin.com", new Address("Leiestraat", "29", "9000", "Gent", "Belgium"), "AdminINSS", Role.ADMIN, "admin"));
+		System.out.println(userList.get(1).getUserId());
 	}
 
 	public List<User> getUserList() {

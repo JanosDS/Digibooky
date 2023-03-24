@@ -2,6 +2,7 @@ package com.switchfully.digibooky.api;
 
 import com.switchfully.digibooky.domain.user.Feature;
 import com.switchfully.digibooky.dto.book.BookDTO;
+import com.switchfully.digibooky.dto.rental.CreateRentalDTO;
 import com.switchfully.digibooky.dto.rental.RentalDTO;
 import com.switchfully.digibooky.dto.user.UserDTO;
 import com.switchfully.digibooky.service.RentalService;
@@ -32,8 +33,8 @@ public class RentalController {
 	}
     @ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(consumes = "application/json", produces = "application/json")
-	public RentalDTO createRental(@RequestBody String isbn, @RequestBody UserDTO userDTO) {
-		return rentalService.rentBook(isbn, userDTO);
+	public RentalDTO createRental(@RequestBody CreateRentalDTO createRentalDTO) {
+		return rentalService.rentBook(createRentalDTO);
 	}
     @ResponseStatus(HttpStatus.OK)
 	@DeleteMapping(produces = "application/json", path = "/{rentalId}")

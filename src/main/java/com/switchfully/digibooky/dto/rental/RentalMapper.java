@@ -24,7 +24,6 @@ public class RentalMapper {
 		return new RentalDTO(bookMapper.mapToDTO(rental.getBook()), userMapper.mapToDTO(rental.getUser()), rental.getRentalId(), rental.getDueDate());
 	}
 
-
 	public List<RentalDTO> mapToDTO(List<Rental> rentalList) {
 		return rentalList.stream()
 				.map(this::mapToDTO)
