@@ -11,6 +11,7 @@ import com.switchfully.digibooky.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 @Service
@@ -41,12 +42,17 @@ public class UserService {
 		return userMapper.mapToDTO(userRepository.addUser(userMapper.mapToDomain(Role.setRoleToAdmin(newUser))));
 	}
 
+	public UserDTO getUserByUuid(UUID uuid){
+		return userRepository.getUserByUuid(uuid)
+				.map(userMapper::mapToDTO)
+				.orElse(null);
+	}
+
 	public UserDTO getUserByInss(String inss){
 		return userRepository.getUserByInss(inss)
 				.map(userMapper::mapToDTO)
 				.orElse(null);
 	}
-
 	public void validateMandatoryAdminAndLibrarianFields(CreateUserDTO newUser){
 		if(newUser.getEmail() == null){
 			throw new MandatoryFieldException("The email field cannot be empty");

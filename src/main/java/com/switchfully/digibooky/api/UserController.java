@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -45,9 +46,9 @@ public class UserController {
 	}
 
     @ResponseStatus(HttpStatus.OK)
-	@GetMapping(path ="/{inss}")
-	public UserDTO getUserByInss(@PathVariable String inss) {
-		return userService.getUserByInss(inss);
+	@GetMapping(path ="/{uuid}")
+	public UserDTO getUserByUuid(@PathVariable UUID uuid) {
+		return userService.getUserByUuid(uuid);
 	}
 
     @ResponseStatus(HttpStatus.OK)
