@@ -127,7 +127,7 @@ public class BookService {
 	}
 
 	public BookDTO deleteBook(String id) {
-		Book bookToDelete = bookRepository.getById(id);
+		Book bookToDelete = bookRepository.getByIsbn(id);
 		bookRepository.deleteBook(bookToDelete);
 		return bookMapper.mapToDTO(bookToDelete);
 	}
