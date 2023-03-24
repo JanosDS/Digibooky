@@ -1,12 +1,12 @@
 package com.switchfully.digibooky.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Book {
 	private final String isbn;
 	private String title;
 	private List<Author> authorList;
-
 	private String summary;
 	private boolean isAvailable;
 
@@ -57,5 +57,22 @@ public class Book {
 	public boolean isBookWrittenBy(String authorName){
 		return authorList.stream()
 				.anyMatch(author -> author.getFirstName().toLowerCase().contains(authorName.toLowerCase()) || author.getLastName().toLowerCase().contains(authorName.toLowerCase()));
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Book book = (Book) o;
+		return Objects.equals(isbn, book.isbn);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(isbn);
 	}
 }

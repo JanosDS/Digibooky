@@ -1,49 +1,40 @@
 package com.switchfully.digibooky.domain;
 
-import java.time.LocalDate;
-import java.util.UUID;
 import com.switchfully.digibooky.domain.user.User;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 public class Rental {
-    private String ISBN;
-    private UUID userId;
-    private UUID rentalId;
-    private LocalDate dueDate;
+    private final Book book;
+    private final User user;
+	private final UUID rentalId;
+	private LocalDate dueDate;
 
-    public Rental(Book book, User user) {
-        this.ISBN = book.getIsbn();
-        this.userId = user.getUserId();
-        this.rentalId = UUID.randomUUID();
-        this.dueDate = calculateDueDate();
-    }
-    public Rental(String ISBN, UUID userId, UUID rentalId, LocalDate dueDate) {
-        this.ISBN = ISBN;
-        this.userId = userId;
-        this.rentalId = rentalId;
-        this.dueDate = dueDate;
-    }
-    private LocalDate calculateDueDate() {
-        return LocalDate.now().plusDays(21);
-    }
-    public UUID getRentalId() {
-        return rentalId;
-    }
+	public Rental(Book book, User user) {
+		this.book = book;
+        this.user = user;
+		this.rentalId = UUID.randomUUID();
+		this.dueDate = calculateDueDate();
+	}
 
-    public String getIsbn() {
-        return ISBN;
-    }
+	private LocalDate calculateDueDate() {
+		return LocalDate.now().plusDays(21);
+	}
 
-    public UUID getUserId() {
-        return userId;
-    }
+	public UUID getRentalId() {
+		return rentalId;
+	}
 
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
+	public LocalDate getDueDate() {
+		return dueDate;
+	}
 
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
+	public Book getBook() {
+		return book;
+	}
 
-
+	public User getUser() {
+		return user;
+	}
 }

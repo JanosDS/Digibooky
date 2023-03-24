@@ -1,9 +1,8 @@
 package com.switchfully.digibooky.dto.author;
 
 public class AuthorDTO {
-    private String firstName;
-    private String lastName;
-
+    private final String firstName;
+    private final String lastName;
 
     public AuthorDTO(String firstName, String lastName) {
         this.firstName = firstName;

@@ -10,17 +10,18 @@ public enum Role {
 			new ArrayList<>()
 	),
 	ADMIN(
-			new ArrayList<>(){{
+			new ArrayList<>() {{
 				add(Feature.VIEW_ALL_MEMBERS);
 				add(Feature.CREATE_NEW_ADMIN);
 				add(Feature.CREATE_NEW_LIBRARIAN);
 			}}
 	),
 	LIBRARIAN(
-			new ArrayList<>(){{
+			new ArrayList<>() {{
 				add(Feature.CREATE_BOOK);
 				add(Feature.DELETE_BOOK);
 				add(Feature.UNDELETE_BOOK);
+				add(Feature.VIEW_BOOKS_BORROWED_BY_USER);
 			}}
 	);
 
@@ -42,7 +43,7 @@ public enum Role {
 		return user.setRole(ADMIN);
 	}
 
-	public boolean hasFeature(Feature feature){
+	public boolean hasFeature(Feature feature) {
 		return features.contains(feature);
 	}
 }

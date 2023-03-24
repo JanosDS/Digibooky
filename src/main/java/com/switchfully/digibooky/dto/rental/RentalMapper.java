@@ -2,6 +2,8 @@ package com.switchfully.digibooky.dto.rental;
 
 
 import com.switchfully.digibooky.domain.Rental;
+import com.switchfully.digibooky.dto.book.BookMapper;
+import com.switchfully.digibooky.dto.user.UserMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,22 +12,23 @@ import java.util.stream.Collectors;
 @Component
 public class RentalMapper {
 
-    private RentalDTO mapToDTO(Rental rental){
-        return new RentalDTO(rental.getIsbn(), rental.getUserId(), rental.getRentalId(), rental.getDueDate());
-    }
+	private final BookMapper bookMapper;
+	private final UserMapper userMapper;
 
-    private Rental mapToDomain(RentalDTO rentalDTO){
-        return new Rental(rentalDTO.getIsbn(), rentalDTO.getUserId(), rentalDTO.getRentalId(), rentalDTO.getDueDate());
-    }
+	public RentalMapper(BookMapper bookMapper, UserMapper userMapper) {
+		this.bookMapper = bookMapper;
+		this.userMapper = userMapper;
+	}
 
-   private List<RentalDTO> mapToDTO(List<Rental> rentalList){
-        return rentalList.stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
-    }
-    private List<Rental> mapToDomain(List<RentalDTO> rentalDTOList){
-        return rentalDTOList.stream()
-                .map(this::mapToDomain)
-                .collect(Collectors.toList());
-    }
+	public RentalDTO mapToDTO(Rental rental) {
+		return new RentalDTO(bookMapper.mapToDTO(rental.getBook()), userMapper.mapToDTO(rental.getUser()), rental.getRentalId(), rental.getDueDate());
+	}
+
+
+	public List<RentalDTO> mapToDTO(List<Rental> rentalList) {
+		return rentalList.stream()
+				.map(this::mapToDTO)
+				.collect(Collectors.toList());
+	}
+
 }

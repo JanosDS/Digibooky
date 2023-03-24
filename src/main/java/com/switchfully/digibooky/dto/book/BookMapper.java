@@ -32,4 +32,9 @@ public class BookMapper {
 	public Book mapToDomain(CreateBookDTO createBookDTO){
 		return new Book(createBookDTO.getIsbn(), createBookDTO.getTitle(), createBookDTO.getSummary(), createBookDTO.isAvailable(), authorMapper.mapToDomain(createBookDTO.getAuthorList()));
 	}
+
+	public BookDetailDTO mapToDetailDTO(Book book){
+		return new BookDetailDTO(book.getIsbn(), book.getTitle(), authorMapper.mapToDTO(book.getAuthorList()), book.getSummary(), book.isAvailable());
+	}
+
 }

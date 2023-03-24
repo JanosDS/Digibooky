@@ -5,11 +5,9 @@ import com.switchfully.digibooky.domain.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 
 @Repository
 public class BookRepository {
@@ -17,6 +15,7 @@ public class BookRepository {
 	private List<Book> bookList;
 
 	private List<Book> deletedBooks;
+
 	public BookRepository() {
 		this.bookList = new ArrayList<>();
 		this.deletedBooks = new ArrayList<>();
@@ -25,66 +24,52 @@ public class BookRepository {
 		bookList.add(new Book("9876", "Test", "Summary", true, List.of(new Author("Rohan", "Thys"))));
 	}
 
-	public Book getByIsbn(String isbn) {
+	public Optional<Book> getBookByIsbn(String isbn) {
 		return bookList.stream()
 				.filter(book -> book.getIsbn().equals(isbn))
-				.findFirst()
-				.orElseThrow();
+				.findFirst();
 	}
 
-	public Book getDeletedBookById(String isbn) {
+	public Optional<Book> getDeletedBookByIsbn(String isbn) {
 		return deletedBooks.stream()
 				.filter(book -> book.getIsbn().equals(isbn))
-				.findFirst()
-				.orElse(null);
-	}
-	public void putBookInList(Book bookToStore1) {
-		bookList.add(bookToStore1);
+				.findFirst();
 	}
 
-	public void removeBook(Book bookToRemove) {
-		bookList.remove(bookToRemove);
-	}
 	public Book addBook(Book bookToAdd) {
 		bookList.add(bookToAdd);
 		return bookToAdd;
 	}
 
-
-	public List<Book> getBookList() {
-		return bookList;
-	}
-
 	public List<Book> getAllBooks() {
 		return bookList;
 	}
-	
-	public void updateBook(Book updatedBook,String isbn) {
-		Book bookToUpdate = bookList.stream().filter(book -> book.getIsbn().equals(isbn))
-				.findFirst()
-				.orElse(null);
-		bookList.set(bookList.indexOf(bookToUpdate),updatedBook);
+
+	public Book updateBook(Book updatedBook) {
+		bookList.set(bookList.indexOf(updatedBook), updatedBook);
+		return updatedBook;
 	}
 
-	public Book getBookByTitle(String title) {
+	public List<Book> getBooksByTitle(String title) {
 		return bookList.stream()
-				.filter(book -> book.getTitle().contains(title))
-				.findFirst()
-				.orElse(null);
+				.filter(book -> book.getTitle().toLowerCase().contains(title.toLowerCase()))
+				.collect(Collectors.toList());
 	}
 
 	public List<Book> getDeletedBooks() {
 		return deletedBooks;
 	}
 
-    public void deleteBook(Book bookToDelete) {
+	public Book deleteBook(Book bookToDelete) {
 		bookList.remove(bookToDelete);
 		deletedBooks.add(bookToDelete);
-    }
+		return bookToDelete;
+	}
 
-	public void unDeleteBook(Book bookToUnDelete) {
+	public Book unDeleteBook(Book bookToUnDelete) {
 		deletedBooks.remove(bookToUnDelete);
 		bookList.add(bookToUnDelete);
+		return bookToUnDelete;
 	}
 
 	public List<Book> getBookByAuthor(String name) {
@@ -92,7 +77,6 @@ public class BookRepository {
 				.filter(book -> book.isBookWrittenBy(name))
 				.collect(Collectors.toList());
 	}
-
 
 }
 

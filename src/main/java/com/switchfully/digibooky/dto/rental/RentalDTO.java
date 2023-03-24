@@ -1,34 +1,37 @@
 package com.switchfully.digibooky.dto.rental;
 
+import com.switchfully.digibooky.dto.book.BookDTO;
+import com.switchfully.digibooky.dto.user.UserDTO;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
 public class RentalDTO {
-    private final String isbn;
-    private final UUID userId;
+
+    private final UserDTO userDTO;
+    private final BookDTO bookDTO;
     private final UUID rentalId;
     private final LocalDate dueDate;
 
-    public RentalDTO(String isbn, UUID userId, UUID rentalId, LocalDate dueDate) {
-        this.isbn = isbn;
-        this.userId = userId;
+    public RentalDTO(BookDTO bookDTO, UserDTO userDTO, UUID rentalId, LocalDate dueDate) {
+        this.bookDTO = bookDTO;
+        this.userDTO = userDTO;
         this.rentalId = rentalId;
         this.dueDate = dueDate;
     }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
     public UUID getRentalId() {
         return rentalId;
     }
 
     public LocalDate getDueDate() {
         return dueDate;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public BookDTO getBookDTO() {
+        return bookDTO;
     }
 }

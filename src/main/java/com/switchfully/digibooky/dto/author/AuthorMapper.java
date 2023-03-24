@@ -8,24 +8,23 @@ import java.util.List;
 @Component
 public class AuthorMapper {
 
+	public Author mapToDomain(AuthorDTO authorDTO) {
+		return new Author(authorDTO.getFirstName(), authorDTO.getLastName());
+	}
 
-    public Author mapToDomain(AuthorDTO authorDTO) {
-        return new Author(authorDTO.getFirstName(), authorDTO.getLastName());
-    }
+	public List<Author> mapToDomain(List<AuthorDTO> authorDTOList) {
+		return authorDTOList.stream()
+				.map(this::mapToDomain)
+				.toList();
+	}
 
-    public List<Author> mapToDomain(List<AuthorDTO> authorDTOList){
-        return authorDTOList.stream()
-                .map(this::mapToDomain)
-                .toList();
-    }
+	public AuthorDTO mapToDto(Author author) {
+		return new AuthorDTO(author.getFirstName(), author.getLastName());
+	}
 
-    public AuthorDTO mapToDto(Author author) {
-        return new AuthorDTO(author.getFirstName(), author.getLastName());
-    }
-
-    public List<AuthorDTO> mapToDTO(List<Author> authorList){
-        return authorList.stream()
-                .map(this::mapToDto)
-                .toList();
-    }
+	public List<AuthorDTO> mapToDTO(List<Author> authorList) {
+		return authorList.stream()
+				.map(this::mapToDto)
+				.toList();
+	}
 }

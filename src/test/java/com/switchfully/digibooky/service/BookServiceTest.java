@@ -5,9 +5,11 @@ import com.switchfully.digibooky.domain.Book;
 import com.switchfully.digibooky.dto.author.AuthorDTO;
 import com.switchfully.digibooky.dto.author.AuthorMapper;
 import com.switchfully.digibooky.dto.book.BookDTO;
-import com.switchfully.digibooky.dto.book.BookDetailMapper;
 import com.switchfully.digibooky.dto.book.BookMapper;
 import com.switchfully.digibooky.dto.book.CreateBookDTO;
+import com.switchfully.digibooky.dto.rental.RentalMapper;
+import com.switchfully.digibooky.dto.user.UserMapper;
+import com.switchfully.digibooky.dto.user.address.AddressMapper;
 import com.switchfully.digibooky.exception.MandatoryFieldException;
 
 import com.switchfully.digibooky.repository.BookRepository;
@@ -29,7 +31,12 @@ public class BookServiceTest {
 
     @BeforeEach
     void setup(){
-        this.bookService = new BookService(new BookMapper(authorMapper),new BookRepository(), new BookDetailMapper(new AuthorMapper()) , new RentalRepository(), new AuthorMapper());
+        this.bookService = new BookService(
+                new BookMapper(authorMapper),
+                new BookRepository(),
+                new RentalMapper(new BookMapper(authorMapper), new UserMapper(new AddressMapper())),
+                new RentalRepository(),
+                new AuthorMapper());
     }
     @Nested
     @DisplayName("validate book fields")

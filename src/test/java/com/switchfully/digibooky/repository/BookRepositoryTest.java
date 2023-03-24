@@ -54,7 +54,7 @@ public class BookRepositoryTest {
         void givenAValidTitle_whenSearchingByTitle_returnTheBookWithThatTitle() {
             Book titleTest = new Book("randomISBN12345", "LOL", "summary1", true, null);
             bookRepository.addBook(titleTest);
-            org.junit.jupiter.api.Assertions.assertEquals(titleTest, bookRepository.getBookByTitle("LOL"));
+            org.junit.jupiter.api.Assertions.assertEquals(titleTest, bookRepository.getBooksByTitle("LOL"));
         }
 
         @Test
@@ -62,7 +62,7 @@ public class BookRepositoryTest {
         void givenAWrongTitle_whenSearchingByTitle_returnNull() {
             Book titleTest = new Book("randomISBN12345", "LOL", "summary1", true, null);
             bookRepository.addBook(titleTest);
-            org.junit.jupiter.api.Assertions.assertNull(bookRepository.getBookByTitle("wrongTitle"));
+            org.junit.jupiter.api.Assertions.assertNull(bookRepository.getBooksByTitle("wrongTitle"));
         }
     }
 }

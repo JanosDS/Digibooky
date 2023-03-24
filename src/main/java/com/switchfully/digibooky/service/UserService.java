@@ -42,7 +42,7 @@ public class UserService {
 	}
 
 	public UserDTO getUserByInss(String inss){
-		return userRepository.getUserByINSS(inss)
+		return userRepository.getUserByInss(inss)
 				.map(userMapper::mapToDTO)
 				.orElse(null);
 	}

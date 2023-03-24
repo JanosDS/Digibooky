@@ -1,28 +1,21 @@
 package com.switchfully.digibooky.domain;
 
-import com.switchfully.digibooky.dto.author.AuthorDTO;
 
 public class Author {
-    /** field id ? **/
-    private String firstName;
-    private String lastName;
+	private final String firstName;
+	private final String lastName;
 
-    public Author(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+	public Author(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
-    public Author(){
-        this.firstName = null;
-        this.lastName = null;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 }
 
