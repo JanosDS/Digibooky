@@ -11,8 +11,11 @@ import com.switchfully.digibooky.repository.BookRepository;
 import com.switchfully.digibooky.repository.RentalRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class BookService {
@@ -120,7 +123,16 @@ public class BookService {
     }
 
     public List<BookDTO> getBookByAuthor(String name) {
-        return bookMapper.mapToDTO(bookRepository.getBookByAuthor(name));
+        List<BookDTO> bookDTOList = new ArrayList<>();
+        //Wildcard logic
+
+        //Name split logic
+        String[] inputSplit = name.split("\\s+");
+
+        for(String namePart : inputSplit){
+            bookDTOList.addAll(bookMapper.mapToDTO(bookRepository.getBookByAuthor(namePart)));
+        }
+        return bookDTOList;
     }
 }
 

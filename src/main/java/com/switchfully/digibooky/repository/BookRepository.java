@@ -64,24 +64,11 @@ public class BookRepository {
 	}
 
 	public List<Book> getBookByAuthor(String name) {
-		String[] nameToSplit = name.toLowerCase().split(" ");
-		List<Book> result = new ArrayList<>();
-		for (Book book : bookList) {
-			for (Author authorOfBook : book.getAuthorList()) {
-				if (nameToSplit.length > 1)
-				{
-					if (authorOfBook.getFirstName().toLowerCase().equals(nameToSplit[0]) && authorOfBook.getLastName().toLowerCase().equals(nameToSplit[1])){
-						result.add(book);
-					}
-				} else if (nameToSplit.length == 1) {
-					if (authorOfBook.getFirstName().toLowerCase().equals(name) || authorOfBook.getLastName().toLowerCase().equals(name)){
-						result.add(book);
-					}
-				}
-			}
-		}
-		return result;
+		return bookList.stream()
+				.filter(book -> book.isBookWrittenBy(name))
+				.collect(Collectors.toList());
 	}
+
 
 }
 
