@@ -29,7 +29,7 @@ public class RentalController {
     }
 
     @GetMapping(produces = "application/json", path = "/{id}")
-    public List<BookDTO> getRentalsByUser (@RequestHeader String authorization, @PathVariable String id) {
+    public List<BookDTO> getBooksBorrowedByUser (@RequestHeader String authorization, @PathVariable String id) {
         securityService.validateAuthorization(authorization, Feature.VIEW_BOOKS_BORROWED_BY_USER);
         return rentalService.getBooksBorrowedByUser(id);
     }
@@ -43,6 +43,5 @@ public class RentalController {
     public void returnBook(@RequestBody Rental rental) {
         rentalService.returnBook(rental);
     }
-
 
 }
