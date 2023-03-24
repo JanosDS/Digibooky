@@ -28,13 +28,7 @@ public class BookRepositoryTest {
     @Test
     @DisplayName("Get all books in repository")
     void givenAListOfSavedBooks_whenGetAll_thenReturnAllBooks() {
-        List<Author> authorList = List.of(new Author("Jimmy", "Sirius"));
-        Book bookToStore1 = new Book("randomISBN12345", "LOL", "summary1", true, authorList);
-        Book bookToStore2 = new Book("randomISBN12346", "LOL2","summary2", true, authorList);
-        bookRepository.addBook(bookToStore1);
-        bookRepository.addBook(bookToStore2);
-        List<Book> actual = bookRepository.getAllBooks();
-        Assertions.assertThat(actual).containsExactly(book1, book2);
+        Assertions.assertThat(bookRepository.getAllBooks()).containsExactly(book1, book2);
     }
 
     @Test
