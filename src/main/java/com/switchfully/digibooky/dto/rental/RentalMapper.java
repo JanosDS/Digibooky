@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 public class RentalMapper {
 
     private RentalDTO mapToDTO(Rental rental){
-        return new RentalDTO(rental.getISBN(), rental.getUserId(), rental.getRentalId(), rental.getDueDate());
+        return new RentalDTO(rental.getIsbn(), rental.getUserId(), rental.getRentalId(), rental.getDueDate());
     }
 
     private Rental mapToDomain(RentalDTO rentalDTO){
-        return new Rental(rentalDTO.getISBN(), rentalDTO.getUserId(), rentalDTO.getRentalId(), rentalDTO.getDueDate());
+        return new Rental(rentalDTO.getIsbn(), rentalDTO.getUserId(), rentalDTO.getRentalId(), rentalDTO.getDueDate());
     }
 
    public List<RentalDTO> mapToDTO(List<Rental> rentalList){

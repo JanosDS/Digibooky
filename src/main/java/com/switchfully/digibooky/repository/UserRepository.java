@@ -33,27 +33,22 @@ public class UserRepository {
 				.findFirst();
 	}
 
-	public Optional<User> getUserByFirstname(String firstname) {
+	public User getUserByName(String firstName, String lastName) {
 		return userList.stream()
-				.filter(user -> user.getFirstName().equals(firstname))
+				.filter(user -> user.getUserId().equals(lastName))
+				.filter(user -> user.getUserId().equals(firstName))
+				.findFirst()
+				.orElse(null);
+	}
+	public Optional<User> getUserByUUID(UUID userId) {
+		return userList.stream()
+				.filter(user -> user.getUserId().equals(userId))
 				.findFirst();
 	}
 
-	public Optional<User> getUserByUuid(UUID uuid){
-		return userList.stream()
-				.filter(user -> user.getUserId().equals(uuid))
-				.findFirst();
-	}
-
-	public List<User> getAllMembers(){
+	public List<User> getAllMembers() {
 		return userList.stream()
 				.filter(user -> user.getRole().equals(Role.MEMBER))
 				.collect(Collectors.toList());
-	}
-
-	public Optional<User> getUserByName(String lastName, String firstName) {
-		return userList.stream()
-				.filter(user -> user.getFirstName().equals(firstName) && user.getLastName().equals(lastName))
-				.findFirst();
 	}
 }

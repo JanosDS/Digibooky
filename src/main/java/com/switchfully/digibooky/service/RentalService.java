@@ -7,12 +7,16 @@ import com.switchfully.digibooky.dto.book.BookDTO;
 import com.switchfully.digibooky.dto.book.BookMapper;
 import com.switchfully.digibooky.dto.rental.RentalDTO;
 import com.switchfully.digibooky.dto.rental.RentalMapper;
+import com.switchfully.digibooky.dto.book.BookDTO;
+import com.switchfully.digibooky.dto.book.BookMapper;
+import com.switchfully.digibooky.dto.user.UserDTO;
 import com.switchfully.digibooky.exception.UserNotFoundException;
 import com.switchfully.digibooky.repository.BookRepository;
 import com.switchfully.digibooky.repository.RentalRepository;
 import com.switchfully.digibooky.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,11 +25,12 @@ import java.util.stream.Collectors;
 public class RentalService {
     //implement services
     private final RentalRepository rentalRepository;
-    private final RentalMapper rentalMapper;
     private final BookRepository bookRepository;
-    private final BookMapper bookMapper;
-    private final UserRepository userRepository;
 
+    private final UserRepository userRepository;
+    private final BookMapper bookMapper;
+
+    @Autowired
     public RentalService(RentalRepository rentalRepository, RentalMapper rentalMapper, BookRepository bookRepository, BookMapper bookMapper, UserRepository userRepository) {
         this.rentalRepository = rentalRepository;
         this.rentalMapper = rentalMapper;
@@ -48,6 +53,14 @@ public class RentalService {
             throw new IllegalArgumentException("Book is not available");
         }
     }
+
+    public List<BookDTO> getOverdueBooks() {
+        return rentalRepository.getOverdueBooks().stream()
+                .map(rental -> bookRepository.getById(rental.getIsbn()))
+                .map(book -> bookMapper.mapToDTO(book))
+                .collect(Collectors.toList());
+    }
+
 
     public List<RentalDTO> getRentalsByUserId(UUID userId) {
         List<Rental> rentalsByUserId = rentalRepository.getByUserId(userId);

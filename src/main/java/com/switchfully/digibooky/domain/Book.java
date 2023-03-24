@@ -3,27 +3,23 @@ package com.switchfully.digibooky.domain;
 import java.util.List;
 
 public class Book {
-	private final String ISBN;
-	private final String title;
-	private final List<Author> authorList;
+	private final String isbn;
+	private String title;
+	private List<Author> authorList;
 
-	private final String summary;
+	private String summary;
 	private boolean isAvailable;
 
-	public Book(String ISBN, String title, String summary, boolean isAvailable, List<Author> authorList) {
-		this.ISBN = ISBN;
+	public Book(String isbn, String title, String summary, boolean isAvailable, List<Author> authorList) {
+		this.isbn = isbn;
 		this.title = title;
 		this.summary = summary;
 		this.isAvailable = isAvailable;
 		this.authorList = authorList;
 	}
 
-	private String getBookDetails(){
-		return " ";
-	}
-
-	public String getISBN() {
-		return ISBN;
+	public String getIsbn() {
+		return isbn;
 	}
 
 	public String getTitle() {
@@ -44,5 +40,17 @@ public class Book {
 
 	public void setAvailable(boolean available) {
 		isAvailable = available;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setAuthorList(List<Author> authorList) {
+		this.authorList = authorList;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 }

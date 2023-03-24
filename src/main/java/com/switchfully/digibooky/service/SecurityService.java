@@ -3,7 +3,7 @@ package com.switchfully.digibooky.service;
 
 import com.switchfully.digibooky.domain.user.Feature;
 import com.switchfully.digibooky.domain.user.User;
-import com.switchfully.digibooky.dto.user.UuidPassword;
+import com.switchfully.digibooky.domain.user.UuidPassword;
 import com.switchfully.digibooky.exception.UnauthorizedException;
 import com.switchfully.digibooky.exception.UserNotFoundException;
 import com.switchfully.digibooky.repository.UserRepository;
@@ -31,7 +31,7 @@ public class SecurityService {
 		} catch(IllegalArgumentException exception){
 			throw new UnauthorizedException("No valid UUID was provided.");
 		}
-		User user = userRepository.getUserByUuid(uuidPassword.getUuid())
+		User user = userRepository.getUserByUUID(uuidPassword.getUuid())
 				.orElseThrow(() -> new UserNotFoundException("No user found with UUID: " + uuidPassword.getUuid()));
 
 		if (!user.doesPasswordMatch(uuidPassword.getPassword())) {

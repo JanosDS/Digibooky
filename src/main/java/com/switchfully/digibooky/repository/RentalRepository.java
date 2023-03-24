@@ -1,13 +1,10 @@
 package com.switchfully.digibooky.repository;
 
-import com.switchfully.digibooky.domain.Book;
 import com.switchfully.digibooky.domain.Rental;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Repository
 public class RentalRepository {
@@ -29,6 +26,24 @@ public class RentalRepository {
                 .orElse(null);
     }
 
+    public void removeRental(Rental rental) {
+        archivedRentals.add(rental);
+        rentals.remove(rental);
+    }
+    public List<Rental> getOverdueBooks() {
+        List<Rental> overdueRentals = new ArrayList<>();
+        rentals.stream()
+                .filter(rental -> rental.getDueDate().isBefore(LocalDate.now()))
+                .forEach(overdueRentals::add);
+        return overdueRentals;
+    }
+
+    public Rental getByIsbn(String isbn) {
+        return rentals.stream()
+                .filter(rental -> rental.getIsbn().equals(isbn))
+                .findFirst()
+                .orElse(null);
+    }
     public List<Rental> getByUserId(UUID userId) {
         return rentals.stream()
                 .filter(rental -> rental.getUserId().equals(userId))

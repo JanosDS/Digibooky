@@ -11,7 +11,7 @@ public class Rental {
     private LocalDate dueDate;
 
     public Rental(Book book, User user) {
-        this.ISBN = book.getISBN();
+        this.ISBN = book.getIsbn();
         this.userId = user.getUserId();
         this.rentalId = UUID.randomUUID();
         this.dueDate = calculateDueDate();
@@ -29,7 +29,7 @@ public class Rental {
         return rentalId;
     }
 
-    public String getISBN() {
+    public String getIsbn() {
         return ISBN;
     }
 
@@ -40,5 +40,10 @@ public class Rental {
     public LocalDate getDueDate() {
         return dueDate;
     }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
 
 }

@@ -4,7 +4,6 @@ import com.switchfully.digibooky.domain.Author;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class AuthorMapper {
@@ -17,7 +16,7 @@ public class AuthorMapper {
     public List<Author> mapToDomain(List<AuthorDTO> authorDTOList){
         return authorDTOList.stream()
                 .map(this::mapToDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public AuthorDTO mapToDto(Author author) {
@@ -27,6 +26,6 @@ public class AuthorMapper {
     public List<AuthorDTO> mapToDTO(List<Author> authorList){
         return authorList.stream()
                 .map(this::mapToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
