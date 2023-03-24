@@ -14,6 +14,7 @@ import com.switchfully.digibooky.exception.UserNotFoundException;
 import com.switchfully.digibooky.repository.BookRepository;
 import com.switchfully.digibooky.repository.RentalRepository;
 import com.switchfully.digibooky.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,7 +27,7 @@ public class RentalService {
     //implement services
     private final RentalRepository rentalRepository;
     private final BookRepository bookRepository;
-
+    private final RentalMapper rentalMapper;
     private final UserRepository userRepository;
     private final BookMapper bookMapper;
 
@@ -39,18 +40,32 @@ public class RentalService {
         this.userRepository = userRepository;
     }
 
-    public void rentBook(String title, String lastName, String firstName) {
-        String ISBN = bookRepository.getBookByTitle(title).getISBN();
-        Book book = bookRepository.getById(ISBN);
-        User user = userRepository.getUserByName(lastName, firstName)
-                .orElseThrow(() -> new UserNotFoundException("User could not be found."));
-        if(book.isAvailable()) {
-            Rental rental = new Rental(book, user);
+    public void rentBook(String title, UserDTO userDTO) {
+        String isbn = bookRepository.getBookByTitle(title).getIsbn();
+        Book book = bookRepository.getByIsbn(isbn);
+        if (book.isAvailable()) {
+            Rental rental = new Rental(bookRepository.getByIsbn(isbn), userRepository.getUserByUUID(userDTO.getUserId())
+                    .orElseThrow(() -> new UserNotFoundException("User not found")));
             rentalRepository.addRental(rental);
             book.setAvailable(false);
         }
-        else {
-            throw new IllegalArgumentException("Book is not available");
+    }
+
+    public void returnBook(Rental rental) {
+
+        String isbn = rental.getIsbn();
+        Book book = bookRepository.getByIsbn(isbn);
+        UUID userId = rental.getUserId();
+        User user = userRepository.getUserByUUID(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        if (rental.getIsbn().equals(isbn) && rental.getUserId().equals(user.getUserId())) {
+            if (rental.getDueDate().isBefore(LocalDate.now())) {
+                throw new IllegalArgumentException("Book is overdue");
+            }
+            rentalRepository.removeRental(rental);
+            book.setAvailable(true);
+        } else {
+            //make custom exception
+            throw new IllegalArgumentException("Book is not rented by this user");
         }
     }
 
@@ -69,7 +84,7 @@ public class RentalService {
 
     public List<BookDTO> getBooksBorrowedByUser(UUID userId) {
         List<Book> booksByUser = getRentalsByUserId(userId).stream()
-                .map(rentalDTO -> bookRepository.getById(rentalDTO.getISBN()))
+                .map(rentalDTO -> bookRepository.getById(rentalDTO.getIsbn()))
                 .toList();
         return bookMapper.mapToDTO(booksByUser);
     }

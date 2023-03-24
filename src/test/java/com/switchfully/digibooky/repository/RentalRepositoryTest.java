@@ -48,6 +48,7 @@ public class RentalRepositoryTest {
     @Test
     void whenSearchingByUserId_thenReturnAListOfRentalsCorrespondingToThatId() {
         //given
+        RentalRepository rentalRepository = new RentalRepository();
         List<Author> authorList = new ArrayList(List.of(new Author("Jimmy", "Hendrix")));
         Address address = new Address("street", "number", "postalCode", "city", "country");
         User user1 = new User("firstName","lastName","email@email.com",address, "inss", Role.MEMBER);

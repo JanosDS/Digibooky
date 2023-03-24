@@ -3,15 +3,20 @@ package com.switchfully.digibooky.repository;
 import com.switchfully.digibooky.domain.Rental;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 public class RentalRepository {
     private List<Rental> rentals;
+    private List<Rental> archivedRentals;
 
     public RentalRepository() {
         this.rentals = new ArrayList<>();
+        this.archivedRentals = new ArrayList<>();
     }
     public void addRental(Rental rental) {
         rentals.add(rental);

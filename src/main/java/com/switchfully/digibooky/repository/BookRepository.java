@@ -17,6 +17,13 @@ public class BookRepository {
 		this.bookList = new ArrayList<>();
 	}
 
+	public Book getByIsbn(String isbn) {
+		return bookList.stream()
+				.filter(book -> book.getIsbn().equals(isbn))
+				.findFirst()
+				.orElseThrow();
+	}
+
 	public Book getById(String isbn) {
 		return bookList.stream()
 				.filter(book -> book.getIsbn().equals(isbn))
