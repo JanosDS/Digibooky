@@ -2,6 +2,7 @@ package com.switchfully.digibooky.service;
 
 import com.switchfully.digibooky.domain.Book;
 import com.switchfully.digibooky.domain.Rental;
+import com.switchfully.digibooky.domain.user.Feature;
 import com.switchfully.digibooky.domain.user.User;
 import com.switchfully.digibooky.dto.book.BookDTO;
 import com.switchfully.digibooky.dto.book.BookMapper;
@@ -82,8 +83,14 @@ public class RentalService {
         return rentalMapper.mapToDTO(rentalsByUserId);
     }
 
-    public List<BookDTO> getBooksBorrowedByUser(UUID userId) {
-        List<Book> booksByUser = getRentalsByUserId(userId).stream()
+    public List<BookDTO> getBooksBorrowedByUser(String userId) {
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(userId);
+        } catch (IllegalArgumentException exception){
+            throw new UserNotFoundException(userId + " is not a valid user");
+        }
+        List<Book> booksByUser = getRentalsByUserId(uuid).stream()
                 .map(rentalDTO -> bookRepository.getById(rentalDTO.getIsbn()))
                 .toList();
         return bookMapper.mapToDTO(booksByUser);

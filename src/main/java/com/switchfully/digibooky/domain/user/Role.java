@@ -17,7 +17,9 @@ public enum Role {
 			}}
 	),
 	LIBRARIAN(
-			new ArrayList<>(){{add(Feature.CREATE_BOOK);
+			new ArrayList<>(){{
+				add(Feature.CREATE_BOOK);
+				add(Feature.VIEW_BOOKS_BORROWED_BY_USER);
 			}}
 	);
 
