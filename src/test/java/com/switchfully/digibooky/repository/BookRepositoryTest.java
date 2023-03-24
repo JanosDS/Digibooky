@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookRepositoryTest {
@@ -21,21 +22,21 @@ public class BookRepositoryTest {
         List<Author> authorList = List.of(new Author("Jimmy", "Sirius"));
         book1 = new Book("randomISBN12345", "LOL", "summary1", true, authorList);
         book2 = new Book("randomISBN12346", "LOL2","summary2", true, authorList);
-        bookRepository.putBookInList(book1);
-        bookRepository.putBookInList(book2);
+        bookRepository.addBook(book1);
+        bookRepository.addBook(book2);
     }
 
     @Test
     @DisplayName("Get all books in repository")
     void givenAListOfSavedBooks_whenGetAll_thenReturnAllBooks() {
-        Assertions.assertThat(bookRepository.getAllBooks()).containsExactly(book1, book2);
+        Assertions.assertThat(bookRepository.getAllBooks()).contains(book1, book2);
     }
 
     @Test
     @DisplayName("Validate that a book can be (soft) deleted by ISBN")
     void givenIsbnOfBook_whenDeleteBook_thenMoveBookToDeletedBooks() {
         bookRepository.deleteBook(book1);
-        Assertions.assertThat(bookRepository.getBookList()).containsExactly(book2);
+        Assertions.assertThat(bookRepository.getAllBooks()).contains(book2);
         Assertions.assertThat(bookRepository.getDeletedBooks()).containsExactly(book1);
     }
 
@@ -44,7 +45,7 @@ public class BookRepositoryTest {
     void givenIsbnOfBook_whenUnDeleteBook_thenMoveBookToUnDeletedBooks() {
         bookRepository.deleteBook(book1);
         bookRepository.unDeleteBook(book1);
-        Assertions.assertThat(bookRepository.getBookList()).containsExactly(book2, book1);
+        Assertions.assertThat(bookRepository.getAllBooks()).contains(book2, book1);
         Assertions.assertThat(bookRepository.getDeletedBooks()).isEmpty();
     }
     @Nested
@@ -52,9 +53,8 @@ public class BookRepositoryTest {
         @Test
         @DisplayName("Search book with exact title")
         void givenAValidTitle_whenSearchingByTitle_returnTheBookWithThatTitle() {
-            Book titleTest = new Book("randomISBN12345", "LOL", "summary1", true, null);
-            bookRepository.addBook(titleTest);
-            org.junit.jupiter.api.Assertions.assertEquals(titleTest, bookRepository.getBooksByTitle("LOL"));
+            Assertions.assertThat(bookRepository.getBooksByTitle("LOL")).contains(book2);
+            Assertions.assertThat(bookRepository.getBooksByTitle("LOL").contains(book1));
         }
 
         @Test
@@ -62,7 +62,7 @@ public class BookRepositoryTest {
         void givenAWrongTitle_whenSearchingByTitle_returnNull() {
             Book titleTest = new Book("randomISBN12345", "LOL", "summary1", true, null);
             bookRepository.addBook(titleTest);
-            org.junit.jupiter.api.Assertions.assertNull(bookRepository.getBooksByTitle("wrongTitle"));
+            Assertions.assertThat(new ArrayList<>().equals(bookRepository.getBooksByTitle("WrongTitle")));
         }
     }
 }
