@@ -118,5 +118,9 @@ public class BookService {
                 .map(bookMapper::mapToDTO)
                 .collect(Collectors.toList());
     }
+
+    public List<BookDTO> getBookByAuthor(String name) {
+        return bookMapper.mapToDTO(bookRepository.getBookByAuthor(name));
+    }
 }
 

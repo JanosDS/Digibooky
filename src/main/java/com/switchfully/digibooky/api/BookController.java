@@ -27,9 +27,13 @@ public class BookController {
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<BookDTO> getAllBooks(@RequestParam(required = false, name="title") String title){
+    public List<BookDTO> getAllBooks(@RequestParam(required = false, name="title") String title, @RequestParam(required = false, name="author")String author){
         if(title != null){
             return bookService.getBooksByTitle(title) ;
+        }
+        if (author != null)
+        {
+            return bookService.getBookByAuthor(author);
         }
         return bookService.getAllBooks();
     }
