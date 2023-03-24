@@ -17,10 +17,10 @@ public enum Role {
 			}}
 	),
 	LIBRARIAN(
-			new ArrayList<>(){{add(Feature.CREATE_BOOK);
+			new ArrayList<>(){{
+				add(Feature.CREATE_BOOK);
 			}}
 	);
-
 
 	private final List<Feature> features;
 

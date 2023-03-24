@@ -90,7 +90,6 @@ public class UserService {
 		}
 	}
 
-
 	public boolean isValidEmailFormat(String email){
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 		Pattern pat = Pattern.compile(emailRegex);
@@ -114,6 +113,5 @@ public class UserService {
 	public List<UserDTO> getAllMembers() {
 		return userMapper.mapToDTO(userRepository.getAllMembers());
 	}
-
 
 }

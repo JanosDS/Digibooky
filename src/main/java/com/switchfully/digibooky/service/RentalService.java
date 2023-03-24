@@ -36,9 +36,9 @@ public class RentalService {
 
     public void rentBook(String title, UserDTO userDTO) {
         String isbn = bookRepository.getBookByTitle(title).getIsbn();
-        Book book = bookRepository.getById(isbn);
+        Book book = bookRepository.getByIsbn(isbn);
         if (book.isAvailable()) {
-            Rental rental = new Rental(bookRepository.getById(isbn), userRepository.getUserByUUID(userDTO.getUserId())
+            Rental rental = new Rental(bookRepository.getByIsbn(isbn), userRepository.getUserByUUID(userDTO.getUserId())
                     .orElseThrow(() -> new UserNotFoundException("User not found")));
             rentalRepository.addRental(rental);
             book.setAvailable(false);
@@ -48,7 +48,7 @@ public class RentalService {
     public void returnBook(Rental rental) {
 
         String isbn = rental.getIsbn();
-        Book book = bookRepository.getById(isbn);
+        Book book = bookRepository.getByIsbn(isbn);
         UUID userId = rental.getUserId();
         User user = userRepository.getUserByUUID(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
         if (rental.getIsbn().equals(isbn) && rental.getUserId().equals(user.getUserId())) {
@@ -65,7 +65,7 @@ public class RentalService {
 
     public List<BookDTO> getOverdueBooks() {
         return rentalRepository.getOverdueBooks().stream()
-                .map(rental -> bookRepository.getById(rental.getIsbn()))
+                .map(rental -> bookRepository.getByIsbn(rental.getIsbn()))
                 .map(book -> bookMapper.mapToDTO(book))
                 .collect(Collectors.toList());
     }

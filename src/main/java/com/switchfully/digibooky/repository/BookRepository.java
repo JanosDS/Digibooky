@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class BookRepository {
@@ -17,7 +16,7 @@ public class BookRepository {
 		this.bookList = new ArrayList<>();
 	}
 
-	public Book getById(String isbn) {
+	public Book getByIsbn(String isbn) {
 		return bookList.stream()
 				.filter(book -> book.getIsbn().equals(isbn))
 				.findFirst()

@@ -1,6 +1,4 @@
 package com.switchfully.digibooky.dto.user;
-
-import com.switchfully.digibooky.domain.user.Address;
 import com.switchfully.digibooky.domain.user.Role;
 import com.switchfully.digibooky.dto.user.address.AddressDTO;
 
