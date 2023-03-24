@@ -20,6 +20,12 @@ public enum Role {
 			new ArrayList<>(){{
 				add(Feature.CREATE_BOOK);
 			}}
+	),
+	LIBRARIAN(
+			new ArrayList<>(){{
+				add(Feature.DELETE_BOOK);
+				add(Feature.UNDELETE_BOOK);
+			}}
 	);
 
 	private final List<Feature> features;

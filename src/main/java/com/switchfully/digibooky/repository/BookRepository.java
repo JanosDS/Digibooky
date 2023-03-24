@@ -12,8 +12,10 @@ public class BookRepository {
 
 	private List<Book> bookList;
 
+	private List<Book> deletedBooks;
 	public BookRepository() {
 		this.bookList = new ArrayList<>();
+		this.deletedBooks = new ArrayList<>();
 	}
 
 	public Book getByIsbn(String isbn) {
@@ -22,26 +24,15 @@ public class BookRepository {
 				.findFirst()
 				.orElseThrow();
 	}
-//	public Book addBook(Book bookToStore1) {
-//		bookList.add(bookToStore1);
-//		return bookToStore1;
-//	}
-	public List<Book> getAllBooks() {
-		return bookList;
-	}
-	
-	public void updateBook(Book updatedBook,String isbn) {
-		Book bookToUpdate = bookList.stream().filter(book -> book.getIsbn().equals(isbn))
-				.findFirst()
-				.orElse(null);
-		bookList.set(bookList.indexOf(bookToUpdate),updatedBook);
-	}
 
-	public Book getBookByTitle(String title) {
-		return bookList.stream()
-				.filter(book -> book.getTitle().equals(title))
+	public Book getDeletedBookById(String isbn) {
+		return deletedBooks.stream()
+				.filter(book -> book.getIsbn().equals(isbn))
 				.findFirst()
 				.orElse(null);
+	}
+	public void putBookInList(Book bookToStore1) {
+		bookList.add(bookToStore1);
 	}
 
 	public void removeBook(Book bookToRemove) {
@@ -52,11 +43,41 @@ public class BookRepository {
 		return bookToAdd;
 	}
 
-	public Book getByTitle(String title) {
+
+	public List<Book> getBookList() {
+		return bookList;
+	}
+
+	public List<Book> getAllBooks() {
+		return bookList;
+	}
+
+	public void updateBook(Book updatedBook,String isbn) {
+		Book bookToUpdate = bookList.stream().filter(book -> book.getIsbn().equals(isbn))
+				.findFirst()
+				.orElse(null);
+		bookList.set(bookList.indexOf(bookToUpdate),updatedBook);
+	}
+
+	public Book getBookByTitle(String title) {
 		return bookList.stream()
 				.filter(book -> book.getTitle().contains(title))
 				.findFirst()
 				.orElse(null);
+	}
+
+	public List<Book> getDeletedBooks() {
+		return deletedBooks;
+	}
+
+    public void deleteBook(Book bookToDelete) {
+		bookList.remove(bookToDelete);
+		deletedBooks.add(bookToDelete);
+    }
+
+	public void unDeleteBook(Book bookToUnDelete) {
+		deletedBooks.remove(bookToUnDelete);
+		bookList.add(bookToUnDelete);
 	}
 }
 

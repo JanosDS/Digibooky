@@ -61,4 +61,16 @@ public class BookController {
         return bookService.updateBook(bookUpdateDTO,isbn);
     }
 
+    @DeleteMapping(path = "/{id}")
+    public BookDTO deleteBook(@PathVariable String id, @RequestHeader String authorization) {
+        securityService.validateAuthorization(authorization, Feature.DELETE_BOOK);
+        return bookService.deleteBook(id);
+    }
+
+    @PutMapping(path = "/{id}")
+    public BookDTO unDeleteBook(@PathVariable String id, @RequestHeader String authorization) {
+        securityService.validateAuthorization(authorization, Feature.UNDELETE_BOOK);
+        return bookService.unDeleteBook(id);
+    }
+
 }
