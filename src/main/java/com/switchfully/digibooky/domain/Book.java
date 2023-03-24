@@ -53,4 +53,9 @@ public class Book {
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
+
+	public boolean isBookWrittenBy(String authorName){
+		return authorList.stream()
+				.anyMatch(author -> author.getFirstName().toLowerCase().contains(authorName.toLowerCase()) || author.getLastName().toLowerCase().contains(authorName.toLowerCase()));
+	}
 }

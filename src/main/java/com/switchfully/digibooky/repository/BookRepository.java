@@ -5,7 +5,11 @@ import com.switchfully.digibooky.domain.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 @Repository
 public class BookRepository {
@@ -16,6 +20,9 @@ public class BookRepository {
 	public BookRepository() {
 		this.bookList = new ArrayList<>();
 		this.deletedBooks = new ArrayList<>();
+//        Add books in list for testing purpose
+		bookList.add(new Book("1234", "Once upon a time", "Summary", true, List.of(new Author("Rohan", "Thys"), new Author("Jean", "David"))));
+		bookList.add(new Book("9876", "Test", "Summary", true, List.of(new Author("Rohan", "Thys"))));
 	}
 
 	public Book getByIsbn(String isbn) {
@@ -51,7 +58,7 @@ public class BookRepository {
 	public List<Book> getAllBooks() {
 		return bookList;
 	}
-
+	
 	public void updateBook(Book updatedBook,String isbn) {
 		Book bookToUpdate = bookList.stream().filter(book -> book.getIsbn().equals(isbn))
 				.findFirst()
@@ -79,5 +86,13 @@ public class BookRepository {
 		deletedBooks.remove(bookToUnDelete);
 		bookList.add(bookToUnDelete);
 	}
+
+	public List<Book> getBookByAuthor(String name) {
+		return bookList.stream()
+				.filter(book -> book.isBookWrittenBy(name))
+				.collect(Collectors.toList());
+	}
+
+
 }
 
